@@ -1,0 +1,40 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  project_heading = style.add_style(b: true, sz: 14)
+  heading = style.add_style(b: true)
+
+  wb.add_worksheet(name: "Posts") do |sheet|
+    # Add a title row
+    sheet.add_row ["The Posts"], style: project_heading
+    # Add the date this was downloaded
+    sheet.add_row ["Downloaded at", Time.now.strftime("%b %-d, %Y")]
+    # Add a blank row
+    sheet.add_row []
+    # Create the header row
+    sheet.add_row ["ID", "Title", "Body"], style: heading
+    # Create the database reference row
+    sheet.add_row ["id", "title", "body"], style: heading
+    # Create entries for each post
+    @pageposts.each do |post|
+      sheet.add_row [post.id, post.title, post.body]
+    end
+  end
+
+  wb.add_worksheet(name: "Comments") do |sheet|
+    # Add a title row
+    sheet.add_row ["Comment Data"], style: project_heading
+    # Add the date this was downloaded
+    sheet.add_row ["Downloaded at", Time.now.strftime("%b %-d, %Y")]
+    # Add a blank row
+    sheet.add_row []
+    # Create the header row
+    # sheet.add_row ["ID", "Title", "Body", "Post ID"], style: heading
+    # Create the database reference row
+    sheet.add_row ["id", "commenter", "body", "post_id"], style: heading
+    # Create entries for each post
+    @allcomments.each do |comment|
+      sheet.add_row [comment.id, comment.commenter, comment.body, comment.post_id]
+    end
+  end
+end

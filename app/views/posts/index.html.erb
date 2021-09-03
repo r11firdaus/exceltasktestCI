@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Exceltask</h1>
+  <nav class="sticky-top bg-white">
+      <%= link_to('Upload', new_posts_import_path) %> | 
+      <%= link_to('Download All', posts_path(format: :xlsx, type: "all")) %> | 
+      <%= link_to('Download this page only', posts_path(format: :xlsx, currpage: params[:page], type: "pageonly")) %>
+  </nav>
+ 
+
+  <hr />
+  <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col-sm-6">
+        <div class="card my-2">
+          <div class="card-body">
+            <h4><%= link_to(post.title, post_path(post)) %></h4>
+            <p><%= truncate(post.body, length: 200) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <hr />
+  <%= paginate @posts, window: 4 %>
+  <%= page_entries_info @posts %>
+</div>
