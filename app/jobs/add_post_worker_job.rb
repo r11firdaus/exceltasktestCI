@@ -5,8 +5,9 @@ class AddPostWorkerJob < ApplicationJob
     # Do something later
     puts "Prepare to upload"
     import = PostsImport.new(posts_import)
+    import.save
 
-    if import
+    if import.save
       puts "Data uploaded"
       return true    
     else
