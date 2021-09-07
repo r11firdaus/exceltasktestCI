@@ -5,9 +5,13 @@
       <%= link_to('Download All', posts_path(format: :xlsx, type: "all")) %> | 
       <%= link_to('Download this page only', posts_path(format: :xlsx, currpage: params[:page], type: "pageonly")) %>
   </nav>
- 
-
+  <%= form_with(url: '/posts', method: 'get', local: true) do %>
+    <%= text_field_tag(:search) %>
+    <%= submit_tag("Search") %>
+  <% end %>
+  <%= link_to "Advanced Search", new_search_path %>
   <hr />
+  
   <div class="row">
     <% @posts.each do |post| %>
       <div class="col-sm-6">

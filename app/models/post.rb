@@ -4,6 +4,16 @@ class Post < ApplicationRecord
 	validates :title, presence: true, length: { minimum: 1 }
 	validates :body, presence: true, length: { minimum: 1 }
 
+	self.inheritance_column = "not_sti"
+
+	def self.search(search)
+        if search 
+            where(["title ILIKE ?","%#{search}%"])
+        else
+            all
+        end
+    end 
+
 	# belum beres, besok bikin tambah create post + image di upload excel
 	# validates :imageurl, presence: true
 end

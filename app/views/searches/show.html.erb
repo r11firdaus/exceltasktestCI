@@ -1,0 +1,33 @@
+<%= console %>
+
+<h1>Search Results</h1>
+<p><%= link_to "Back", new_search_path %></p>
+
+<% if @search.search_post.empty? %>
+    <p>No Post were found.</p>
+<% else %>
+    <%= form_with(url: '/posts', method: 'get', local: true) do %>
+        <%= text_field_tag(:search) %>
+        <%= submit_tag("Search") %>
+    <% end %>
+
+    <%= link_to "Advanced Search", new_search_path %>
+    <hr />
+      
+    <div class="row">
+        <% @search.search_post.each do |post| %>
+          <div class="col-sm-6">
+            <div class="card my-2">
+              <div class="card-body">
+                <h4><%= link_to(post.title, post_path(post)) %></h4>
+                <p><%= truncate(post.body, length: 200) %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+    </div>
+    <hr />
+    
+    <!-- %= paginate @search, window: 4 % -->
+    <!-- %= page_entries_info @search % -->
+<% end %>

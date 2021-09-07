@@ -1,0 +1,13 @@
+<h1>Advanced Search</h1>
+
+<%= form_with model: @search do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+
+    <%= f.label :body %>
+     <%= f.select :body, [ 'ASC', 'DESC' ], prompt: 'Select One' %>
+
+    <%= f.submit "Search" %>
+<% end %>
+
+<p><%= link_to "Back", '/posts' %></p>

@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.order('created_at DESC').page(params[:page]).per(10)
+    # @posts = Post.order('created_at DESC').page(params[:page]).per(10)
+    @posts = Post.search(params[:search]).order('created_at DESC').page(params[:page]).per(10)
     @type = params[:type]
     @currpage = params[:currpage].to_i
 
@@ -71,6 +72,6 @@ class PostsController < ApplicationController
   private
  
   def post_params
-    params.require(:post).permit(:title, :body, :image)
+    params.require(:post).permit(:title, :body)
   end
 end
