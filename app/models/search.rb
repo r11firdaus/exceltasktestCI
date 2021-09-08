@@ -1,4 +1,5 @@
 class Search < ApplicationRecord
+    paginates_per 10
 	self.inheritance_column = "not_sti"
 
     def search_post

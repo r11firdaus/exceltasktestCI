@@ -1,9 +1,7 @@
-<%= console %>
-
 <h1>Search Results</h1>
 <p><%= link_to "Back", new_search_path %></p>
 
-<% if @search.search_post.empty? %>
+<% if @posts.empty? %>
     <p>No Post were found.</p>
 <% else %>
     <%= form_with(url: '/posts', method: 'get', local: true) do %>
@@ -15,7 +13,7 @@
     <hr />
       
     <div class="row">
-        <% @search.search_post.each do |post| %>
+        <% @posts.each do |post| %>
           <div class="col-sm-6">
             <div class="card my-2">
               <div class="card-body">
@@ -28,6 +26,6 @@
     </div>
     <hr />
     
-    <!-- %= paginate @search, window: 4 % -->
-    <!-- %= page_entries_info @search % -->
+    <%= paginate @posts, window: 4 %>
+    <%= page_entries_info @posts %>
 <% end %>

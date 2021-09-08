@@ -1,6 +1,8 @@
 class SearchesController < ApplicationController
 	def show
         @search = Search.find(params[:id])
+        @posts = @search.search_post.page(params[:page]).per(10)
+        # @search = Search.search(params[:title], params[:body]).page(params[:page]).per(10)
     end 
 
     def new 
