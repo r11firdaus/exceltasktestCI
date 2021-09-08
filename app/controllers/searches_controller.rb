@@ -2,7 +2,13 @@ class SearchesController < ApplicationController
 	def show
         @search = Search.find(params[:id])
         @posts = @search.search_post.page(params[:page]).per(10)
-        # @search = Search.search(params[:title], params[:body]).page(params[:page]).per(10)
+
+        @user = User.find(session[:user_id])
+
+        if @user.role != 'admin'
+          @posts = @posts.where(["user_id = ?", session[:user_id].to_s])
+        end
+        Search.delete_all
     end 
 
     def new 

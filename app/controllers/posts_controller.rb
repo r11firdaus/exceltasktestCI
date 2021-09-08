@@ -1,7 +1,15 @@
 class PostsController < ApplicationController
+  before_action :user_signed_in?
+  helper_method :current_user
+
   def index
-    # @posts = Post.order('created_at DESC').page(params[:page]).per(10)
     @posts = Post.search(params[:search]).order('created_at DESC').page(params[:page]).per(10)
+    @user = User.find(session[:user_id])
+
+    if @user.role != 'admin'
+      @posts = @posts.where(["user_id = ?", session[:user_id].to_s])
+    end
+
     @type = params[:type]
     @currpage = params[:currpage].to_i
 
@@ -59,6 +67,22 @@ class PostsController < ApplicationController
       redirect_to post_path(@post)
     else
       render :edit
+    end
+  end
+
+  def create
+    @post = Post.new(post_params)
+    @post.user_id = session[:user_id]
+
+
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to @post, notice: "Post was successfully created." }
+        format.json { render :show, status: :created, location: @post }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
     end
   end
 
