@@ -9,9 +9,11 @@
 
 <nav class="sticky-top bg-white border-bottom">
   <ul class="nav justify-content-between">
-    <li class="nav-item">
-      <%= link_to('Upload', new_posts_import_path, class: 'nav-link') if user.role == "admin" %>
-    </li>
+    <% if user.role == "admin" %>
+      <li class="nav-item">
+        <%= link_to('Upload', new_posts_import_path, class: 'nav-link') %>
+      </li>
+    <% end %>
     <li class="nav-item">
       <%= link_to('Download All', posts_path(format: :xlsx, type: "all"), class: 'nav-link') %>
     </li>
