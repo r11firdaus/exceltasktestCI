@@ -1,30 +1,41 @@
-<!-- menampilkan pesan notice -->
-<% if notice %>
-    <p><%= notice %></p>
-<% end %>
+<div class="container">
+    <!-- menampilkan pesan notice -->
+    <% if notice %>
+        <p class="alert alert-warning" role="alert"><%= notice %></p>
+    <% end %>
 
-<!-- menampilkan pesan alert -->
-<% if alert %>
-    <p><%= alert %></p>
-<% end %>
+    <!-- menampilkan pesan alert -->
+    <% if alert %>
+        <p class="alert alert-danger mt-2" role="alert"><%= alert %></p>
+    <% end %>
 
-<!-- menampilkan validasi error -->
-<% if @user.errors.any? %>
-    <h5>
-        <%= pluralize(@user.errors.count, "error") %> Uppss!, tidak bisa daftar karena :
-    </h5>
-    <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
+    <!-- menampilkan validasi error -->
+    <% if @user.errors.any? %>
+        <div class="alert alert-danger mt-2" role="alert">
+            <h5>
+                <%= pluralize(@user.errors.count, "error") %> Uppss!, tidak bisa daftar karena :
+            </h5>
+            <ul>
+                <% @user.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <!-- menampilkan form register -->
+    <h2>Register</h2>
+    <div class="mx-auto">
+        <%= form_with model: @user, url: register_post_path do |f| %>
+            <div class="mb-3">
+                <%= f.text_field :username, placeholder: 'Username', class: 'form-control' %>
+            </div>
+            <div class="mb-3">
+                <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+            </div>
+
+            <%= submit_tag 'Login', class: "btn btn-primary" %> <br>
+            <p>Sudah punya akun? <%= link_to 'login', form_login_path %></p>
         <% end %>
-    </ul>
-<% end %>
-
-<!-- menampilkan form register -->
-<%= form_with model: @user, url: register_post_path do |f| %>
-    <%= f.text_field :username, placeholder: 'Userame' %> <br><br>
-    <%= f.password_field :password, placeholder: 'Password' %> <br><br>
-
-    <%= f.submit 'Register' %> <br>
-    <p>Sudah punya akun? <%= link_to 'login', form_login_path %></p>
-<% end %>
+    </div>
+</div>

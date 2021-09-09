@@ -1,19 +1,27 @@
-<!-- menampilkan pesan notice -->
-<% if notice %>
-    <p><%= notice %></p>
-<% end %>
+<div class="container">
+    <!-- menampilkan pesan notice -->
+    <% if notice %>
+        <p class="alert alert-warning"  role="alert"><%= notice %></p>
+    <% end %>
 
-<!-- menampilkan pesan alert -->
-<% if alert %>
-    <p><%= alert %></p>
-<% end %>
+    <!-- menampilkan pesan alert -->
+    <% if alert %>
+        <p class="alert alert-danger mt-2" role="alert"><%= alert %></p>
+    <% end %>
 
-<!-- menampilkan form login -->
-<%= form_tag controller: :auth, action: :login, local: true do %>
-   
-    <%= text_field_tag :username, '', placeholder: 'Userame' %> <br><br>
-    <%= password_field_tag :password, '', placeholder: 'Password' %> <br><br>
+    <!-- menampilkan form login -->
+    <h2>Login</h2>
+    <div class="mx-auto">
+    <%= form_tag controller: :auth, action: :login, local: true do %>
+        <div class="mb-3">
+            <%= text_field_tag :username, '', placeholder: 'Username', class: 'form-control' %>
+        </div>
+        <div class="mb-3">
+            <%= password_field_tag :password, '', placeholder: 'Password', class: 'form-control' %>
+        </div>
 
-    <%= submit_tag 'Login' %> <br>
-    <p>Belum punya akun? <%= link_to 'register', form_register_path %></p>
-<% end %>
+        <%= submit_tag 'Login', class: "btn btn-primary" %> <br>
+        <p>Belum punya akun? <%= link_to 'register', form_register_path %></p>
+    <% end %>
+    </div>
+</div>

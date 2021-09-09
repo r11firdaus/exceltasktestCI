@@ -5,25 +5,23 @@ class PostsController < ApplicationController
   def index
     @posts = Post.search(params[:search]).order('created_at DESC').page(params[:page]).per(10)
     @user = User.find(session[:user_id])
-
-    if @user.role != 'admin'
-      @posts = @posts.where(["user_id = ?", session[:user_id].to_s])
-    end
+    
+    @posts = @posts.where(["user_id = ?", session[:user_id].to_s]) if @user.role != 'admin'
 
     @type = params[:type]
     @currpage = params[:currpage].to_i
 
-    if params[:currpage].to_i > 1
-      @currpage - 1
-    end
+    @currpage - 1 if params[:currpage].to_i > 1
 
-    if @type == "all"
-      @pageposts = Post.all
+    @pageposts = Post.all    
+    @pageposts = Post.order('created_at DESC').limit(10).offset(@currpage * 10 || 1) if @type != "all"
+
+    if @user.role != 'admin'
+      @pageposts = @pageposts.where(["user_id = ?", session[:user_id].to_s])
     else
-      @pageposts = Post.order('created_at DESC').limit(10).offset(@currpage * 10 || 1)
+      @allcomments = Comment.order('post_id')
     end
 
-    @allcomments = Comment.order('post_id')
     respond_to do |format|
       format.xlsx {
         response.headers[
