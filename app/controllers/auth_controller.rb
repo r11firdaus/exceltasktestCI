@@ -12,7 +12,7 @@ class AuthController < ApplicationController
             render :form_register, alert: "username sudah terdaftar"
         else
             if @user.save
-                 redirect_to form_register_path, notice: "Berhasil membuat akun!"
+                 redirect_to form_login_path, notice: "Berhasil membuat akun!"
             else
                 render :form_register
             end

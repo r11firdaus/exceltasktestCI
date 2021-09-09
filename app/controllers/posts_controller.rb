@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   before_action :user_signed_in?
-  helper_method :current_user
 
   def index
     @posts = Post.search(params[:search]).order('created_at DESC').page(params[:page]).per(10)

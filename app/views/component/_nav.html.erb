@@ -1,0 +1,25 @@
+<h1 class="col-4">Exceltask</h1>
+  <div class="col-8">
+    <%= form_with(url: '/posts', method: 'get', local: true) do %>
+        <%= text_field_tag(:search, "", class: "form-control", placeholder: "Search") %>
+    <% end %>
+  </div>
+</div>
+    <%= link_to "Advanced Search", new_search_path, class: "d-flex flex-row-reverse mb-2" %>
+
+<nav class="sticky-top bg-white border-bottom">
+  <ul class="nav justify-content-between">
+    <li class="nav-item">
+      <%= link_to('Upload', new_posts_import_path, class: 'nav-link') if user.role == "admin" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to('Download All', posts_path(format: :xlsx, type: "all"), class: 'nav-link') %>
+    </li>
+    <li class="nav-item">
+      <%= link_to('Download page', posts_path(format: :xlsx, currpage: params[:page], type: "pageonly"), class: 'nav-link') %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Logout", user_logout_path(current_user), class: 'nav-link', method: :delete %>
+    </li>
+  </ul>
+</nav>
