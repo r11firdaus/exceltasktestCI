@@ -20,8 +20,10 @@
         <%= render 'comments/form' %>
     </div>
 
-    <div class="row fixed-bottom">
-        <%= link_to('Edit', edit_post_path(@post), class: "btn btn-success col") %>
-        <%= link_to('Destroy', post_path(@post),method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger col") %>
-    </div> 
+    <% if @post.user_id == session[:user_id] %>
+        <div class="row fixed-bottom">
+            <%= link_to('Edit', edit_post_path(@post), class: "btn btn-success col") %>
+            <%= link_to('Destroy', post_path(@post),method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger col") %>
+        </div>
+    <% end -%>
 </div>
