@@ -1,36 +1,56 @@
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
+<%= form_with(model: @user) do |form| %>
+  <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
-        <% user.errors.each do |error| %>
+        <% @user.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <% if current_user.id == user.id %>
-    <div class="field">
-      <%= form.label :username %>
-      <%= form.text_field :username %>
-    </div>
+  <!-- % if @current_user.id == @user.id %  -->
+    <!-- <div class="field"> -->
+      <!-- %= form.label :username % -->
+      <!-- %= form.text_field :username, class: "form-control mb-2", required: true % -->
+    <!-- </div> -->
 
+    <!-- <div class="field"> -->
+      <!-- %= form.label :password % -->
+      <!-- %= form.text_field :password, type: 'password', class: "form-control mb-2" % -->
+    <!-- </div> -->
+  <!-- % end % -->
+
+  <% if @current_user.role == "admin" %>
     <div class="field">
-      <%= form.label :password %>
-      <%= form.text_field :password %>
+      <%= form.label :role %>
+      <%= form.select :role, Role.all.collect {|x| [x.name]}, class: "form-select form-select-sm mb-2" %>
     </div>
   <% end %>
 
-  <% if current_user.role == "admin" %>
-    <div class="field">
-      <%= form.label :role %>
-      <%= form.select :role, Role.all.collect {|x| [x.name]} %>
+  <% if @current_user.id == @user.id %>
+    <div class="mt-3">
+      <%= form.text_field :province, autocomplete: true, class: "form-control mb-2", placeholder: "Province", required: true%>
+      <div id="dropdownProv">
+          <select name="list" id="list_province" class= "form-select form-select-sm" hidden></select>
+      </div> 
+      <%= form.text_field :city, autocomplete: true, class:  "form-control mb-2", disabled: true, placeholder: "City", required: true %>
+      <div id="dropdownCity">
+          <select name="list" id="list_city" class= "form-select form-select-sm" hidden></select>
+      </div>
+
+      <%= form.text_field :district, autocomplete: true, class:  "form-control mb-2", disabled: true, placeholder: "District", required: true %>
+      <div id="dropdownDistrict">
+          <select name="list" id="list_district" class= "form-select form-select-sm" hidden=""></select>
+      </div>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= button_tag 'Submit', type: 'submit', class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<%= javascript_pack_tag 'id-region', 'data-turbolinks-track': 'reload' %>

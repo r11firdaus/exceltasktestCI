@@ -6,13 +6,13 @@
 </p>
 
 <p>
-  <strong>Password:</strong>
-  <%= @user.password %>
+  <strong>Role:</strong>
+  <%= @user.role %>
 </p>
 
 <p>
-  <strong>Role:</strong>
-  <%= @user.role %>
+  <strong>address:</strong>
+  <%= @user.district %>, <%= @user.city %>, <%= @user.province %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

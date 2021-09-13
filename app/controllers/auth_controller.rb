@@ -9,7 +9,7 @@ class AuthController < ApplicationController
         username = User.find_by(username: @user.username)
 
         if username
-            render :form_register, alert: "username sudah terdaftar"
+            redirect_to edit_user_path(@user) , alert: "username sudah terdaftar"
         else
             if @user.save
                  redirect_to form_login_path, notice: "Berhasil membuat akun!"
@@ -48,6 +48,6 @@ class AuthController < ApplicationController
 
     private
     def user_params
-        params.require(:user).permit(:username, :password)
+        params.require(:user).permit(:username, :password, :province, :city, :district)
     end
 end
