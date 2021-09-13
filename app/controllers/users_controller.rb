@@ -19,12 +19,7 @@ class UsersController < ApplicationController
   def validate_role
     @user = User.find(session[:user_id])
 
-    if @user.role == "admin"
-      true
-    else
-      redirect_to root_path, notice: "Access denied."
-      return false
-    end
+    redirect_to root_path, notice: "Access denied." if @user.role != "admin"
   end
 
   # GET /users/1/edit
