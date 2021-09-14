@@ -1,29 +1,31 @@
-<h1 class="col-4">Exceltask</h1>
-<div class="col-8">
-  <div class="row">
-    <%= form_with(url: '/posts', method: 'get', local: true, class: 'col-10') do %>
-        <%= text_field_tag(:search, "", class: "form-control", placeholder: "Search") %>
-    <% end %>
-    <%= link_to "Logout", user_logout_path(session[:user_id]), class: 'col-2 d-flex align-items-center nav-link', method: :delete %>
+<div class="row px-2 py-2">
+  <h1 class="col-4">Exceltask</h1>
+  <div class="col-8">
+    <div class="row">
+      <%= form_with(url: '/posts', method: 'get', local: true, class: 'col-9') do %>
+          <%= text_field_tag(:search, "", class: "form-control", placeholder: "Search") %>
+      <% end %>
+      <%= link_to "Logout", user_logout_path(session[:user_id]), class: 'col-2 d-flex align-items-center nav-link', method: :delete %>
+    </div>
   </div>
-</div>
 
-<nav class="sticky-top bg-white border-bottom">
-  <ul class="nav justify-content-between">
-    <% if session[:role] == "admin" %>
+  <nav class="sticky-top bg-white border-bottom">
+    <ul class="nav justify-content-between">
+      <% if session[:role] == "admin" %>
+        <li class="nav-item">
+          <a href="<%= new_posts_import_path %>" class="nav-link">&uarr; XLSX</a>
+        </li>
+      <% end %>
       <li class="nav-item">
-        <a href="<%= new_posts_import_path %>" class="nav-link">&uarr; XLSX</a>
+        <a href="<%= posts_path(format: :xlsx, currpage: params[:page], type: "all") %>" class="nav-link">&darr; All</a>
       </li>
-    <% end %>
-    <li class="nav-item">
-      <a href="<%= posts_path(format: :xlsx, currpage: params[:page], type: "all") %>" class="nav-link">&darr; All</a>
-    </li>
-    <li class="nav-item">
-      <a href="<%= posts_path(format: :xlsx, currpage: params[:page], type: "pageonly") %>" class="nav-link">&darr; Page</a>
-    </li>
-    <li class="nav-item">
-      <%= link_to 'Profile', users_path(session[:user_id]), class: 'nav-link' %>
-    </li>
-  </ul>
-</nav>
-<%= link_to "Advanced Search", new_search_path, class: "float-end my-2" %>
+      <li class="nav-item">
+        <a href="<%= posts_path(format: :xlsx, currpage: params[:page], type: "pageonly") %>" class="nav-link">&darr; Page</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Profile', users_path(session[:user_id]), class: 'nav-link' %>
+      </li>
+    </ul>
+  </nav>
+  <%= link_to "Advanced Search", new_search_path, class: "float-end my-2" %>
+</div>
