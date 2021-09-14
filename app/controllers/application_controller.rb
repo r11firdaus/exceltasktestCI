@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
 	# mencari user berdasarkan session key
     def current_user
         if session[:user_id]
-            User.find(session[:user_id])
+            # User.find(session[:user_id])
+            true
         else
             nil
         end
