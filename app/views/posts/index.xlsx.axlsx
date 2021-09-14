@@ -32,7 +32,7 @@ wb.styles do |style|
     # sheet.add_row ["ID", "Title", "Body", "Post ID"], style: heading
     # Create the database reference row
     sheet.add_row ["id", "commenter", "body", "post_id"], style: heading
-    if @user.role == 'admin'
+    if session[:role] == 'admin'
       # Create entries for each post
       @allcomments.each do |comment|
         sheet.add_row [comment.id, comment.commenter, comment.body, comment.post_id]
