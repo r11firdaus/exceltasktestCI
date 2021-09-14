@@ -1,3 +1,4 @@
+<%= link_to 'Advance search', new_search_path %>
 <div class="row">
   <div class="mt-3">
     <% if session[:role] == 'admin' || session[:role] == 'writer' %>
@@ -9,7 +10,7 @@
           <div class="card my-2">
             <div class="card-body">
               <h4><%= link_to(post.title, post_path(post.id)) %></h4>
-              <!-- <strong>Writer: <%= post.username %></strong> -->
+              <strong>Writer: <%= post.username %></strong>
               <p><%= truncate(post.body, length: 200) %></p>
             </div>
           </div>

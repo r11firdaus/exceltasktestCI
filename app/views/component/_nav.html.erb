@@ -1,14 +1,15 @@
-<div class="row px-2 py-2">
-  <h1 class="col-4">Exceltask</h1>
-  <div class="col-8">
-    <div class="row">
-      <%= form_with(url: '/posts', method: 'get', local: true, class: 'col-9') do %>
-          <%= text_field_tag(:search, "", class: "form-control", placeholder: "Search") %>
-      <% end %>
-      <%= link_to "Logout", user_logout_path(session[:user_id]), class: 'col-2 d-flex align-items-center nav-link', method: :delete %>
+<% if session[:user_id] %>
+  <div class="row px-2 py-2">
+    <h1 class="col-4">Exceltask</h1>
+    <div class="col-8">
+      <div class="row">
+        <%= form_with(url: '/posts', method: 'get', local: true, class: 'col-9') do %>
+            <%= text_field_tag(:search, "", class: "form-control", placeholder: "Search") %>
+        <% end %>
+        <%= link_to "Logout", user_logout_path(session[:user_id]), class: 'col-3 nav-link', method: :delete %>
+      </div>
     </div>
   </div>
-
   <nav class="sticky-top bg-white border-bottom">
     <ul class="nav justify-content-between">
       <% if session[:role] == "admin" %>
@@ -27,5 +28,4 @@
       </li>
     </ul>
   </nav>
-  <%= link_to "Advanced Search", new_search_path, class: "float-end my-2" %>
-</div>
+<% end %>
