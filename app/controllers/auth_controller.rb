@@ -32,6 +32,7 @@ class AuthController < ApplicationController
             if user.authenticate(password)
                 # membuat session dengan key = :user_id
                 session[:user_id] = user.id
+                session[:role] = user.role
                 redirect_to posts_path, notice: "Selamat datang #{user.username}"
             else
                 redirect_to form_login_path, alert: "Password tidak sesuai"

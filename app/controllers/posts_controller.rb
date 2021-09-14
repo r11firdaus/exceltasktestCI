@@ -2,10 +2,12 @@ class PostsController < ApplicationController
   before_action :user_signed_in?
 
   def index
-    @posts = Post.search(params[:search]).order('created_at DESC').page(params[:page]).per(10)
-    @user = User.find(session[:user_id])
+    @posts = Post.joins(:user).search(params[:search])
+            .select("posts.*, users.id as user_id, users.username, users.role")
+            .order('posts.created_at DESC').page(params[:page]).per(10)
+    # @user = User.find(session[:user_id])
     
-    @posts = @posts.where(["user_id = ?", session[:user_id].to_s]) if @user.role != 'admin'
+    @posts = @posts.where(["user_id = ?", session[:user_id].to_s]) if session[:role] != 'admin'
 
     @type = params[:type]
     @currpage = params[:currpage].to_i
@@ -15,7 +17,7 @@ class PostsController < ApplicationController
     @pageposts = Post.all    
     @pageposts = Post.order('created_at DESC').limit(10).offset(@currpage * 10 || 1) if @type != "all"
 
-    if @user.role != 'admin'
+    if session[:role] != 'admin'
       @pageposts = @pageposts.where(["user_id = ?", session[:user_id].to_s])
     else
       @allcomments = Comment.order('post_id')
@@ -32,9 +34,12 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.joins(:user)
+    .select("posts.*, users.id as user_id, users.username")
+    .find_by(id: params[:id])
     respond_to do |format|
       format.html
+      format.json { render json: @post }
       format.pdf do
         save_path = Rails.root.join("public", "#{@post.id}.pdf")
         if File.exist?(save_path)
