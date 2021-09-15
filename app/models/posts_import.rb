@@ -45,7 +45,7 @@ class PostsImport
       imported_posts.each(&:save!)
       true
     else
-      imported_posts.each_with_index do |item, index|
+      imported_posts.each_with_index do |_item, index|
         post.errors.full_messages.each do |msg|
           errors.add :base, "Row #{index + 6}: #{msg}"
         end

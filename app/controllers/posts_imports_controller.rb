@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostsImportsController < ApplicationController
   def new
     @posts_import = PostsImport.new

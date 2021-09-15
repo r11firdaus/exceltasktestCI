@@ -1,22 +1,19 @@
-class ApplicationController < ActionController::Base
-    helper_method :current_user
-	# mencari user berdasarkan session key
-    def current_user
-        if session[:user_id]
-            # User.find(session[:user_id])
-            true
-        else
-            nil
-        end
-    end
+# frozen_string_literal: true
 
-    # cek apakah user sudah login
-    def user_signed_in?
-        if current_user
-            true
-        else
-            redirect_to form_login_path, alert: "Silahkan login terlebih dahulu!"
-            return false
-        end
+class ApplicationController < ActionController::Base
+  helper_method :current_user
+  # mencari user berdasarkan session key
+  def current_user
+    true if session[:user_id]
+  end
+
+  # cek apakah user sudah login
+  def user_signed_in?
+    if current_user
+      true
+    else
+      redirect_to form_login_path, alert: 'Silahkan login terlebih dahulu!'
+      false
     end
+  end
 end

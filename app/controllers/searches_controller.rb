@@ -1,28 +1,25 @@
+# frozen_string_literal: true
+
 class SearchesController < ApplicationController
-	def show
-        @search = Search.find(params[:id])
-        @posts = @search.search_post.page(params[:page]).per(10)
+  def show
+    @search = Search.find(params[:id])
+    @posts = @search.search_post.page(params[:page]).per(10)
+    @posts = @posts.where(['user_id = ?', session[:user_id].to_s]) if session[:role] != 'admin'
+    Search.delete_all
+  end
 
-        @user = User.find(session[:user_id])
+  def new
+    @search = Search.new
+  end
 
-        if @user.role != 'admin'
-          @posts = @posts.where(["user_id = ?", session[:user_id].to_s])
-        end
-        Search.delete_all
-    end 
+  def create
+    @search = Search.create(search_params)
+    redirect_to @search
+  end
 
-    def new 
-        @search = Search.new
-    end
+  private
 
-    def create
-        @search = Search.create(search_params)
-        redirect_to @search
-    end 
-
-    private
-
-    def search_params
-        params.require(:search).permit(:title, :body)
-    end 
+  def search_params
+    params.require(:search).permit(:title, :body)
+  end
 end
