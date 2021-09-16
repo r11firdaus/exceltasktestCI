@@ -2,146 +2,146 @@
 #   Exclude:
 #     - /db
 
-Style/Documentation:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-
-AllCops:
-  TargetRubyVersion: 3.0
-  Exclude:
-    - '**/*.gemspec'
-    - '**/vendor/**/*'
-
-Layout/SpaceBeforeFirstArg:
-  Enabled: false
-
-Lint/RescueException:
-  Severity: fatal
-  Enabled: true
-
-Lint/UnusedBlockArgument:
-  Severity: fatal
-  Enabled: true
-
-Metrics/LineLength:
-  Description: "Limit lines to 120 characters."
-  Severity: fatal
-  Max: 120
-  Enabled: true
+# Style/Documentation:
+#   Enabled: false
 
 # Metrics/MethodLength:
-#   Severity: convention
+#   Enabled: false
+
+
+# AllCops:
+#   TargetRubyVersion: 3.0
+#   Exclude:
+#     - '**/*.gemspec'
+#     - '**/vendor/**/*'
+
+# Layout/SpaceBeforeFirstArg:
+#   Enabled: false
+
+# Lint/RescueException:
+#   Severity: fatal
 #   Enabled: true
-#   Max: 5
 
-Layout/HashAlignment:
-  Severity: fatal
-  Enabled: true
-  EnforcedHashRocketStyle: table
-  EnforcedColonStyle: table
+# Lint/UnusedBlockArgument:
+#   Severity: fatal
+#   Enabled: true
 
-Layout/ParameterAlignment:
-  Severity: fatal
-  Enabled: true
-  EnforcedStyle: with_fixed_indentation
+# Metrics/LineLength:
+#   Description: "Limit lines to 120 characters."
+#   Severity: fatal
+#   Max: 120
+#   Enabled: true
 
-ClassAndModuleChildren:
-  Severity: fatal
-  Enabled: true
+# # Metrics/MethodLength:
+# #   Severity: convention
+# #   Enabled: true
+# #   Max: 5
 
-Naming/ConstantName:
-  Severity: fatal
-  Enabled: true
+# Layout/HashAlignment:
+#   Severity: fatal
+#   Enabled: true
+#   EnforcedHashRocketStyle: table
+#   EnforcedColonStyle: table
 
-Style/Documentation:
-  Enabled: false
+# Layout/ParameterAlignment:
+#   Severity: fatal
+#   Enabled: true
+#   EnforcedStyle: with_fixed_indentation
 
-Layout/EmptyLinesAroundClassBody:
-  Severity: fatal
-  Enabled: true
+# ClassAndModuleChildren:
+#   Severity: fatal
+#   Enabled: true
 
-Layout/ExtraSpacing:
-  Enabled: false
+# Naming/ConstantName:
+#   Severity: fatal
+#   Enabled: true
 
-Naming/FileName:
-  Enabled: false
+# Style/Documentation:
+#   Enabled: false
 
-Style/HashSyntax:
-  Severity: fatal
-  Enabled: true
-  EnforcedStyle: ruby19_no_mixed_keys
+# Layout/EmptyLinesAroundClassBody:
+#   Severity: fatal
+#   Enabled: true
 
-Layout/IndentationConsistency:
-  Severity: fatal
-  Enabled: true
+# Layout/ExtraSpacing:
+#   Enabled: false
 
-Layout/IndentationWidth:
-  Severity: fatal
-  Enabled: true
+# Naming/FileName:
+#   Enabled: false
 
-Layout/FirstHashElementIndentation:
-  Severity: fatal
-  Enabled: true
-  EnforcedStyle: consistent
+# Style/HashSyntax:
+#   Severity: fatal
+#   Enabled: true
+#   EnforcedStyle: ruby19_no_mixed_keys
 
-Style/InlineComment:
-  Enabled: false
+# Layout/IndentationConsistency:
+#   Severity: fatal
+#   Enabled: true
 
-Style/LineEndConcatenation:
-  Severity: fatal
-  Enabled: true
+# Layout/IndentationWidth:
+#   Severity: fatal
+#   Enabled: true
 
-Naming/MethodName:
-  Severity: fatal
-  Enabled: true
+# Layout/FirstHashElementIndentation:
+#   Severity: fatal
+#   Enabled: true
+#   EnforcedStyle: consistent
 
-Style/MultilineTernaryOperator:
-  Enabled: false
+# Style/InlineComment:
+#   Enabled: false
 
-Style/NegatedIf:
-  Severity: fatal
-  Enabled: true
+# Style/LineEndConcatenation:
+#   Severity: fatal
+#   Enabled: true
 
-Style/Not:
-  Severity: fatal
-  Enabled: true
+# Naming/MethodName:
+#   Severity: fatal
+#   Enabled: true
 
-Style/RaiseArgs:
-  Enabled: false
+# Style/MultilineTernaryOperator:
+#   Enabled: false
 
-Layout/SpaceInsideHashLiteralBraces:
-  Severity: fatal
-  Enabled: true
+# Style/NegatedIf:
+#   Severity: fatal
+#   Enabled: true
 
-Style/StringLiterals:
-  Severity: fatal
-  Enabled: true
-  EnforcedStyle: single_quotes
+# Style/Not:
+#   Severity: fatal
+#   Enabled: true
 
-Layout/TrailingEmptyLines:
-  Severity: fatal
-  Enabled: true
+# Style/RaiseArgs:
+#   Enabled: false
 
-Layout/TrailingWhitespace:
-  Severity: fatal
-  Enabled: true
+# Layout/SpaceInsideHashLiteralBraces:
+#   Severity: fatal
+#   Enabled: true
 
-Naming/VariableName:
-  Severity: fatal
-  Enabled: true
+# Style/StringLiterals:
+#   Severity: fatal
+#   Enabled: true
+#   EnforcedStyle: single_quotes
 
-Style/CollectionMethods:
-  Severity: fatal
-  PreferredMethods:
-    collect: 'map'
-    collect!: 'map!'
-    inject: 'reduce'
-    detect: 'find'
-    find_all: 'select'
+# Layout/TrailingEmptyLines:
+#   Severity: fatal
+#   Enabled: true
 
-Layout/DotPosition:
-  Severity: fatal
-  EnforcedStyle: leading
+# Layout/TrailingWhitespace:
+#   Severity: fatal
+#   Enabled: true
+
+# Naming/VariableName:
+#   Severity: fatal
+#   Enabled: true
+
+# Style/CollectionMethods:
+#   Severity: fatal
+#   PreferredMethods:
+#     collect: 'map'
+#     collect!: 'map!'
+#     inject: 'reduce'
+#     detect: 'find'
+#     find_all: 'select'
+
+# Layout/DotPosition:
+#   Severity: fatal
+#   EnforcedStyle: leading

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Auth in base app(find user is login or not)
 class ApplicationController < ActionController::Base
   helper_method :current_user
   # mencari user berdasarkan session key

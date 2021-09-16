@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Authtenticating user
 class AuthController < ApplicationController
   def form_register
     redirect_to posts_path if session[:user_id]

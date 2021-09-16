@@ -1,36 +1,36 @@
 # frozen_string_literal: true
 
+# posts controller only can accessed if user has logged in
 class PostsController < ApplicationController
   before_action :user_signed_in?
 
   def index
+    find_post
+    export_excel
+    respond_to do |format|
+      format.xlsx do
+        response.headers['Content-Disposition'] = "attachment; filename=#{DateTime.now}-posts.xlsx"
+      end
+      format.html { render :index }
+      format.json { render json: @posts }
+    end
+  end
+
+  def find_post
     @posts = Post.joins(:user).search(params[:search])
-                 # @posts = Post.includes(user: [:post]).search(params[:search])
                  .select('posts.*, users.id as user_id, users.username, users.role')
                  .order('posts.created_at DESC').page(params[:page]).per(10)
 
     @posts = @posts.where(['user_id = ?', session[:user_id].to_s]) if session[:role] != 'admin'
+  end
 
-    @currpage = params[:currpage].to_i
-    @currpage - 1 if params[:currpage].to_i > 1
-
-    @pageposts = Post.all
-    @pageposts = Post.order('created_at DESC').limit(10).offset(@currpage * 10 || 1) if params[:type] != 'all'
-
+  def export_excel
+    currpage = params[:currpage].to_i > 1 ? params[:currpage].to_i - 1 : params[:currpage].to_i
+    @pageposts = params[:type] == 'all' ? Post.all : Post.order('created_at DESC').limit(10).offset(currpage * 10 || 1)
     if session[:role] != 'admin'
       @pageposts = @pageposts.where(['user_id = ?', session[:user_id].to_s])
     else
       @allcomments = Comment.order('post_id')
-    end
-
-    respond_to do |format|
-      format.xlsx do
-        response.headers[
-          'Content-Disposition'
-        ] = "attachment; filename=#{DateTime.now}-posts.xlsx"
-      end
-      format.html { render :index }
-      format.json { render json: @posts }
     end
   end
 
@@ -42,17 +42,21 @@ class PostsController < ApplicationController
       format.html
       format.json { render json: @post }
       format.pdf do
-        save_path = Rails.root.join('public', "#{@post.id}.pdf")
-        if File.exist?(save_path)
-          # send pdf data
-          send_file save_path, disposition: :inline
-        else
-          # kick off the job and render the default template for this action
-          AddPdfJob.perform_now(@post)
-          send_file save_path, disposition: :inline
-          DeletePdfJob.set(wait: 1.minutes).perform_later(@post.id)
-        end
+        export_pdf
       end
+    end
+  end
+
+  def export_pdf
+    save_path = Rails.root.join('public', "#{@post.id}.pdf")
+    if File.exist?(save_path)
+      # send pdf data
+      send_file save_path, disposition: :inline
+    else
+      # kick off the job and render the default template for this action
+      AddPdfJob.perform_now(@post)
+      send_file save_path, disposition: :inline
+      DeletePdfJob.set(wait: 1.minutes).perform_later(@post.id)
     end
   end
 
@@ -76,7 +80,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = session[:user_id]
+    respond_create
+  end
 
+  def respond_create
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }

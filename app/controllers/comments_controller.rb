@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# only create and destroy function for comments, because its a child from post
 class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
