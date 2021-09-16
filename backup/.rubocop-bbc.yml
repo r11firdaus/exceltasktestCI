@@ -1,16 +1,5 @@
-# AllCops:
-#   Exclude:
-#     - /db
-
-Style/Documentation:
-  Enabled: false
-
-Metrics/MethodLength:
-  Enabled: false
-
-
 AllCops:
-  TargetRubyVersion: 3.0
+  TargetRubyVersion: 2.3
   Exclude:
     - '**/*.gemspec'
     - '**/vendor/**/*'
@@ -32,21 +21,25 @@ Metrics/LineLength:
   Max: 120
   Enabled: true
 
-# Metrics/MethodLength:
-#   Severity: convention
-#   Enabled: true
-#   Max: 5
+Metrics/MethodLength:
+  Severity: convention
+  Enabled: true
+  Max: 5
 
-Layout/HashAlignment:
+Layout/AlignHash:
   Severity: fatal
   Enabled: true
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
 
-Layout/ParameterAlignment:
+Layout/AlignParameters:
   Severity: fatal
   Enabled: true
   EnforcedStyle: with_fixed_indentation
+
+Style/BracesAroundHashParameters:
+  Severity: fatal
+  Enabled: true
 
 ClassAndModuleChildren:
   Severity: fatal
@@ -82,7 +75,7 @@ Layout/IndentationWidth:
   Severity: fatal
   Enabled: true
 
-Layout/FirstHashElementIndentation:
+Layout/IndentFirstHashElement:
   Severity: fatal
   Enabled: true
   EnforcedStyle: consistent
@@ -121,7 +114,7 @@ Style/StringLiterals:
   Enabled: true
   EnforcedStyle: single_quotes
 
-Layout/TrailingEmptyLines:
+Layout/TrailingBlankLines:
   Severity: fatal
   Enabled: true
 

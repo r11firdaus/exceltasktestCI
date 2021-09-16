@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 class PostsImport
   include ActiveModel::Model
   require 'roo'
 
   attr_accessor :file
 
-  def initialize(attributes={})
-    if attributes != nil
+  def initialize(attributes = {})
+    if !attributes.nil?
       attributes.each { |name, value| send("#{name}=", value) }
     else
-      puts "Data empty"
+      puts 'Data empty'
     end
   end
 
@@ -18,9 +20,9 @@ class PostsImport
 
   def open_spreadsheet
     case File.extname(file.original_filename)
-      when ".csv" then Csv.new(file.path, nil, :ignore)
-      when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-      when ".xlsx" then Roo::Excelx.new(file.path)
+    when '.csv' then Csv.new(file.path, nil, :ignore)
+    when '.xls' then Roo::Excel.new(file.path, nil, :ignore)
+    when '.xlsx' then Roo::Excelx.new(file.path)
     else raise "Unknown file type: #{file.original_filename}"
     end
   end
@@ -30,7 +32,7 @@ class PostsImport
     header = spreadsheet.row(5)
     (6..spreadsheet.last_row).map do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      post = Post.find_by_id(row["id"]) || Post.new
+      post = Post.find_by_id(row['id']) || Post.new
       post.attributes = row.to_hash
       post
     end
@@ -53,5 +55,4 @@ class PostsImport
       false
     end
   end
-
 end
