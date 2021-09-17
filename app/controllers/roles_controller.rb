@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# Creating roles for users, so admin can assign them to users
 class RolesController < ApplicationController
+  before_action :user_signed_in?
   before_action :validate_role
   before_action :set_role, only: %i[show edit update destroy]
 

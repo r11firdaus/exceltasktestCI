@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# create an advanced search and save to db
 class SearchesController < ApplicationController
+  before_action :user_signed_in?
   def show
     @search = Search.find(params[:id])
     @posts = @search.search_post.page(params[:page]).per(10)

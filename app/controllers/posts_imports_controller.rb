@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# imports excel file for posts and comments
 class PostsImportsController < ApplicationController
+  before_action :user_signed_in?
   def new
     @posts_import = PostsImport.new
   end

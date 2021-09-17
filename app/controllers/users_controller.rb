@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# only the users can edit their data, but for roles, only admin can assign it to users
 class UsersController < ApplicationController
+  before_action :user_signed_in?
   before_action :set_user, only: %i[show edit update destroy]
   before_action :validate_role, only: %i[index]
 
@@ -19,7 +21,6 @@ class UsersController < ApplicationController
 
   def validate_role
     @user = User.find(session[:user_id])
-
     redirect_to root_path, notice: 'Access denied.' if @user.role != 'admin'
   end
 

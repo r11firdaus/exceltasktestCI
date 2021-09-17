@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# import posts nor comments and validate the file(xlsx) before save it to db
 class PostsImport
   include ActiveModel::Model
   require 'roo'
@@ -47,12 +48,16 @@ class PostsImport
       imported_posts.each(&:save!)
       true
     else
-      imported_posts.each_with_index do |_item, index|
-        post.errors.full_messages.each do |msg|
-          errors.add :base, "Row #{index + 6}: #{msg}"
-        end
-      end
+      errors_save_excel
       false
+    end
+  end
+
+  def errors_save_excel
+    imported_posts.each_with_index do |_item, index|
+      post.errors.full_messages.each do |msg|
+        errors.add :base, "Row #{index + 6}: #{msg}"
+      end
     end
   end
 end

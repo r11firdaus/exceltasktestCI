@@ -2,6 +2,8 @@
 
 # only create and destroy function for comments, because its a child from post
 class CommentsController < ApplicationController
+  before_action :user_signed_in?
+
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(comment_params)

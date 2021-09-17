@@ -25,6 +25,7 @@ class PostsController < ApplicationController
   end
 
   def export_excel
+    # masih bermaasalah sama ABC size metrics di rubocop
     currpage = params[:currpage].to_i > 1 ? params[:currpage].to_i - 1 : params[:currpage].to_i
     @pageposts = params[:type] == 'all' ? Post.all : Post.order('created_at DESC').limit(10).offset(currpage * 10 || 1)
     if session[:role] != 'admin'
