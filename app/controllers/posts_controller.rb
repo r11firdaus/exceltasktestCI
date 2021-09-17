@@ -6,7 +6,7 @@ class PostsController < ApplicationController
 
   def index
     find_post
-    export_excel
+    export_excel(params[:currpage].to_i)
     respond_to do |format|
       format.xlsx do
         response.headers['Content-Disposition'] = "attachment; filename=#{DateTime.now}-posts.xlsx"
@@ -24,15 +24,10 @@ class PostsController < ApplicationController
     @posts = @posts.where(['user_id = ?', session[:user_id].to_s]) if session[:role] != 'admin'
   end
 
-  def export_excel
-    # masih bermaasalah sama ABC size metrics di rubocop
-    currpage = params[:currpage].to_i > 1 ? params[:currpage].to_i - 1 : params[:currpage].to_i
-    @pageposts = params[:type] == 'all' ? Post.all : Post.order('created_at DESC').limit(10).offset(currpage * 10 || 1)
-    if session[:role] != 'admin'
-      @pageposts = @pageposts.where(['user_id = ?', session[:user_id].to_s])
-    else
-      @allcomments = Comment.order('post_id')
-    end
+  def export_excel(page)
+    thispage = page > 1 ? page - 1 : page
+    @pageposts = params[:type] == 'all' ? Post.all : Post.order('created_at DESC').limit(10).offset(thispage * 10 || 1)
+    @pageposts = @pageposts.where(['user_id = ?', session[:user_id].to_s]) if session[:role] != 'admin'
   end
 
   def show
