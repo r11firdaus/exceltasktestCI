@@ -90,7 +90,8 @@ const getVal = (type, inputName, optionsName, arrName) => {
 	}
 }
 
-getVal('Province', 'user_province', 'list_province', arrProvince)
+const provEl = document.getElementById('user_province')
+provEl && getVal('Province', 'user_province', 'list_province', arrProvince)
 
 const getCityData = (Id) => {
 	for (let i = 0; i <= arrProvince.length; i++) {
