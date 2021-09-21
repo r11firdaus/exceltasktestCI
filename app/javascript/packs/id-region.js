@@ -16,15 +16,17 @@ const getVal = (type, inputName, optionsName, arrName) => {
 	};
 
 	const show = () => {
+		const districtInput = document.getElementById('user_district')
 		switch(type) {
+
 			case 'Province':
 				const cityInput = document.getElementById('user_city')
 				document.getElementById('list_city').textContent = ''
 				document.getElementById('list_district').textContent = ''
 				if (cityInput.value != '') cityInput.value = ''
+				if (districtInput.value != '') districtInput.value = ''
 				break;
 			case 'City':
-				const districtInput = document.getElementById('user_district')
 				document.getElementById('list_district').textContent = ''
 				if (districtInput.value != '') districtInput.value = ''
 				break;
