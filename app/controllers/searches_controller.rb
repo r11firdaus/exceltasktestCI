@@ -7,7 +7,6 @@ class SearchesController < ApplicationController
     @search = Search.find(params[:id])
     @posts = @search.search_post.page(params[:page]).per(10)
     @posts = @posts.where(['user_id = ?', session[:user_id].to_s]) if session[:role] != 'admin'
-    Search.delete_all
   end
 
   def new
@@ -15,6 +14,7 @@ class SearchesController < ApplicationController
   end
 
   def create
+    Search.delete_all
     @search = Search.create(search_params)
     redirect_to @search
   end

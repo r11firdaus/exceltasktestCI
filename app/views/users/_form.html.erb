@@ -23,12 +23,11 @@
     <!-- </div> -->
   <!-- % end % -->
 
-  <% if session[:role] == "admin" %>
-    <div class="field">
-      <%= form.label :role %>
-      <%= form.select :role, Role.all.collect {|x| [x.name]}, class: "form-select form-select-sm mb-2" %>
-    </div>
-  <% end %>
+  <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" name="user[role]" id="user_role">
+    <% Role.all.collect do |ro| %>
+      <%= content_tag(:option, "#{ro.name}", value: ro.name) %>
+    <% end %>
+  </select>
 
   <% if session[:user_id] == @user.id %>
     <div class="mt-3">

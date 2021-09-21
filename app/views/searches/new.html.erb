@@ -9,7 +9,12 @@
 
         <div class="mb-3">
             <%= f.label 'Sort', class: 'form-label' %>
-            <%= f.select :body, [ 'ASC', 'DESC' ], prompt: 'Select One', :class => 'form-control' %>
+            <!-- %= f.select :body, [ 'ASC', 'DESC' ], prompt: 'Select One', :class => 'form-control' % -->
+
+            <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" name="search[body]" id="search_body">
+                <option value="ASC">Ascending</option>
+                <option value="DESC">Descending</option>
+            </select>
         </div>
 
         <%= f.submit "Search", class: 'btn btn-primary' %>
