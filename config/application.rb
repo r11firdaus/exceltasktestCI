@@ -36,5 +36,6 @@ module Exceltask
     config.generators.system_tests = nil
 
     # config.active_job.queue_adapter = :sidekiq
+    # config.force_ssl = true
   end
 end

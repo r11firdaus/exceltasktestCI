@@ -18,7 +18,6 @@ const getVal = (type, inputName, optionsName, arrName) => {
 	const show = () => {
 		const districtInput = document.getElementById('user_district')
 		switch(type) {
-
 			case 'Province':
 				const cityInput = document.getElementById('user_city')
 				document.getElementById('list_city').textContent = ''

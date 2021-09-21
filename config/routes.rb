@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :roles
-  resources :users
+  resources :users, except: [:new]
   get 'posts_imports/new'
   get 'posts_imports/create'
   get 'comments/create'

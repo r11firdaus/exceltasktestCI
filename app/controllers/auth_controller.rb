@@ -12,7 +12,7 @@ class AuthController < ApplicationController
     username = User.find_by(username: @user.username)
 
     if username
-      redirect_to edit_user_path(@user), alert: 'username sudah terdaftar'
+      render :form_register, alert: 'username sudah terdaftar'
     elsif @user.save
       redirect_to form_login_path, notice: 'Berhasil membuat akun!'
     else
@@ -35,6 +35,8 @@ class AuthController < ApplicationController
 
   def check_user_login(user)
     if user.authenticate(params[:password])
+      reset_session
+
       # membuat session dengan key = :user_id
       session[:user_id] = user.id
       session[:role] = user.role

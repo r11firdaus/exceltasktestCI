@@ -2,6 +2,7 @@
 
 # Auth in base app(find user is login or not)
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
   helper_method :current_user
   # mencari user berdasarkan session key
   def current_user
