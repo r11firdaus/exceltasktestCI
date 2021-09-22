@@ -32,7 +32,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.joins(:user).select('posts.*, users.id as user_id, users.username').find(params[:id])
-    @post.user_id == session[:user_id] ? show_response : redirect_to(posts_path)
+    @post.user_id == session[:user_id] || session[:role] == 'admin' ? show_response : redirect_to(posts_path)
   end
 
   def show_response
