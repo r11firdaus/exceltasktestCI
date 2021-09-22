@@ -31,9 +31,11 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.joins(:user)
-                .select('posts.*, users.id as user_id, users.username')
-                .find_by(id: params[:id])
+    @post = Post.joins(:user).select('posts.*, users.id as user_id, users.username').find(params[:id])
+    @post.user_id == session[:user_id] ? show_response : redirect_to(posts_path)
+  end
+
+  def show_response
     respond_to do |format|
       format.html
       format.json { render json: @post }
