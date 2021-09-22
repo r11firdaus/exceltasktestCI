@@ -36,6 +36,9 @@ gem 'kaminari', git: 'https://github.com/kaminari/kaminari'
 gem 'roo'
 gem 'rubyzip', '>= 1.2.1'
 
+# recaptcha
+gem "recaptcha", require: "recaptcha/rails"
+
 # exporting excel
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'

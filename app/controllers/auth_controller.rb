@@ -13,7 +13,7 @@ class AuthController < ApplicationController
 
     if username
       render :form_register, alert: 'username sudah terdaftar'
-    elsif @user.save
+    elsif verify_recaptcha(model: @user) && @user.save
       redirect_to form_login_path, notice: 'Berhasil membuat akun!'
     else
       render :form_register
@@ -29,7 +29,7 @@ class AuthController < ApplicationController
     if user
       check_user_login(user)
     else
-      redirect_to form_login_path, alert: 'Username tidak ditemukan'
+      redirect_to form_login_path, alert: 'Username atau Password salah'
     end
   end
 
@@ -42,7 +42,7 @@ class AuthController < ApplicationController
       session[:role] = user.role
       redirect_to posts_path, notice: "Selamat datang #{user.username}"
     else
-      redirect_to form_login_path, alert: 'Password tidak sesuai'
+      redirect_to form_login_path, alert: 'Username atau Password salah'
     end
   end
 

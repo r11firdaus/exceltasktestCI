@@ -28,10 +28,10 @@
     <div class="mx-auto">
         <%= form_with model: @user, url: register_post_path do |f| %>
             <div class="mb-3">
-                <%= f.text_field :username, placeholder: 'Username', class: 'form-control' %>
+                <%= f.text_field :username, placeholder: 'Username', class: 'form-control', required: true %>
             </div>
             <div class="mb-3">
-                <%= f.password_field :password, placeholder: 'Password', class: 'form-control' %>
+                <%= f.password_field :password, placeholder: 'Password', class: 'form-control', required: true %>
             </div>
 
             <div class="mt-3">
@@ -48,6 +48,10 @@
                 <div id="dropdownDistrict">
                     <select name="list" id="list_district" class= "form-select form-select-sm" hidden=""></select>
                 </div>
+              </div>
+
+              <div>
+                <%= recaptcha_tags %> <!-- THIS -->
               </div>
 
             <%= submit_tag 'Register', class: "btn btn-primary" %> <br>
