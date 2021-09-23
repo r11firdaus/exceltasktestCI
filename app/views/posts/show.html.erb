@@ -12,7 +12,9 @@
 
     <div class="card p-2 mt-3 mb-5">
         <h5>Comments</h5>
-        <%= render @post.comments %>
+        <% cache @post.comments do %>
+            <%= render @post.comments, cached: true %>
+        <% end %>
     </div>
 
     <div class="mb-5">
