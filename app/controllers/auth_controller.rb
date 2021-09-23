@@ -40,6 +40,7 @@ class AuthController < ApplicationController
       # membuat session dengan key = :user_id
       session[:user_id] = user.id
       session[:role] = user.role
+      session[:username] = user.username
       redirect_to posts_path, notice: "Selamat datang #{user.username}"
     else
       redirect_to form_login_path, alert: 'Username atau Password salah'

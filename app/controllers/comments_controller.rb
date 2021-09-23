@@ -7,7 +7,10 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(comment_params)
-    redirect_to(post_path(@post))
+    @comment.commenter = session[:username]
+    if @comment.save
+     ActionCable.server.broadcast "comment_channel", {content: @comment, sender: session[:username]}
+    end
   end
 
   def destroy

@@ -15,7 +15,3 @@ require("jquery")
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
-$(document).on('turbolinks:load', function () {
-  console.log("We made it!");
-})
