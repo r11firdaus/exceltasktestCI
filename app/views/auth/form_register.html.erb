@@ -13,7 +13,7 @@
     <% if @user.errors.any? %>
         <div class="alert alert-danger mt-2" role="alert">
             <h5>
-                <%= pluralize(@user.errors.count, "error") %> Uppss!, tidak bisa daftar karena :
+                (<%= pluralize(@user.errors.count, "error") %>) Sorry, you can't register because:
             </h5>
             <ul>
                 <% @user.errors.full_messages.each do |msg| %>

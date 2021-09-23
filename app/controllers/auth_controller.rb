@@ -12,7 +12,7 @@ class AuthController < ApplicationController
     username = User.find_by(username: @user.username)
 
     if username
-      render :form_register, alert: 'username sudah terdaftar'
+      redirect_to form_register_path, alert: 'username sudah terdaftar'
     elsif verify_recaptcha(model: @user) && @user.save
       redirect_to form_login_path, notice: 'Berhasil membuat akun!'
     else
