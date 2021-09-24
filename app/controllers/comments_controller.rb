@@ -9,7 +9,8 @@ class CommentsController < ApplicationController
     @comment = @post.comments.create(comment_params)
     @comment.commenter = session[:username]
     if @comment.save
-     ActionCable.server.broadcast "comment_channel", {content: @comment, sender: session[:username]}
+     # ActionCable.server.broadcast "comment_channel", {content: @comment, sender: session[:username]}
+     # redirect_to(post_path(@post))
     end
   end
 
