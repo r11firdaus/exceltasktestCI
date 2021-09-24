@@ -76,9 +76,10 @@ class PostsController < ApplicationController
   end
 
   def create
-    # @post = Post.new(post_params)
-    # @post.user_id = session[:user_id]
-    # respond_create
+    @post = Post.new(post_params)
+    @post.user_id = session[:user_id]
+    @post.save
+    redirect_to @post
   end
 
   def respond_create
