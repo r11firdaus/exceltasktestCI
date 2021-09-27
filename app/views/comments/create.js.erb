@@ -1,16 +1,16 @@
 const element = document.querySelector("#form_comment");
 element.addEventListener("ajax:success", (event) => {
-	const dataForm = $('#form_comment').serializeArray()
 	$('#comment').append(`
 		<div class="card bg-light my-2">
 			<div class="card-body">
-			  <strong class="card-title">${dataForm[1].value}</strong>
-			  <p>${dataForm[2].value}</p>
+			  <strong class="card-title"><%= @comment.commenter %></strong>
+			  <p><%= @comment.body %></p>
+			  <p><%= link_to('Delete Comment', [@comment.post, @comment], method: :delete, data: {confirm: 'Are you sure?'})
+    	%></p>
 			</div>
 		</div>
 	`)
  	$('#comment_body').val('')
- 	debugger
 });
 
 element.addEventListener("ajax:error", () => {
