@@ -31,7 +31,7 @@
     </select>
   <% end %>
 
-  <% if session[:user_id] == @user.id %>
+  <% if session[:userdata]["id"] == @user.id %>
     <div class="mt-3">
       <%= form.text_field :province, autocomplete: true, class: "form-control mb-2", placeholder: "Province", required: true%>
       <div id="dropdownProvince">

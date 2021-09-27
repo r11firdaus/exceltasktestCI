@@ -7,13 +7,14 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(comment_params)
-    @comment.commenter = session[:username]
-    if @comment.save
-      respond_to do |format|
-        format.js
-      end
-      # ActionCable.server.broadcast "comment_channel", {content: @comment, sender: session[:username]}
+    @comment.commenter = session[:userdata]['username']
+    return unless @comment.save
+
+    respond_to do |format|
+      format.js
     end
+    # ActionCable.server.broadcast "comment_channel", {content: @comment, sender: session[:userdata]["username"]}
+    # end
   end
 
   def destroy

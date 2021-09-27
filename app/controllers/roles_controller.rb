@@ -12,7 +12,7 @@ class RolesController < ApplicationController
   end
 
   def validate_role
-    @user = User.find(session[:user_id])
+    @user = User.find(session[:userdata]['id'])
 
     if @user.role == 'admin'
       true

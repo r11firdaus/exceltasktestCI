@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   # mencari user berdasarkan session key
   def current_user
-    true if session[:user_id]
+    true if session[:userdata]['id']
   end
 
   # cek apakah user sudah login

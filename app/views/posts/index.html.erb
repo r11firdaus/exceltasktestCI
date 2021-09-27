@@ -1,7 +1,7 @@
 <%= link_to 'Advance search', new_search_path %>
 <div class="row">
   <div class="mt-3">
-    <% if session[:role] == 'admin' || session[:role] == 'writer' %>
+    <% if session[:userdata]["role"] == 'admin' || session[:userdata]["role"] == 'writer' %>
       <%= link_to 'Add Post', new_post_path, class: "btn btn-primary" %>
     <% end %>
     <div class="row">

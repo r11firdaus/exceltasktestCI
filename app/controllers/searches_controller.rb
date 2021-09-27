@@ -6,7 +6,7 @@ class SearchesController < ApplicationController
   def show
     @search = Search.find(params[:id])
     @posts = @search.search_post.page(params[:page]).per(10)
-    @posts = @posts.where(['user_id = ?', session[:user_id].to_s]) if session[:role] != 'admin'
+    @posts = @posts.where(['user_id = ?', session[:userdata]['id'].to_s]) if session[:userdata]['role'] != 'admin'
   end
 
   def new

@@ -3,7 +3,7 @@
 # Authtenticating user
 class AuthController < ApplicationController
   def form_register
-    redirect_to posts_path if session[:user_id]
+    redirect_to posts_path if session[:userdata]['id']
     @user = User.new
   end
 
@@ -21,7 +21,7 @@ class AuthController < ApplicationController
   end
 
   def form_login
-    redirect_to posts_path if session[:user_id]
+    redirect_to posts_path if session[:userdata]
   end
 
   def login
@@ -37,10 +37,8 @@ class AuthController < ApplicationController
     if user.authenticate(params[:password])
       reset_session
 
-      # membuat session dengan key = :user_id
-      session[:user_id] = user.id
-      session[:role] = user.role
-      session[:username] = user.username
+      # membuat session dengan key = :userdata
+      session[:userdata] = user
       redirect_to posts_path, notice: "Selamat datang #{user.username}"
     else
       redirect_to form_login_path, alert: 'Username atau Password salah'

@@ -14,7 +14,7 @@
   <% end %>
 
   <div class="form-group">
-    <input type="text" hidden="true" value="<%= session[:username] %>" name="comment[username]">
+    <input type="text" hidden="true" value="<%= session[:userdata]["username"] %>" name="comment[username]">
     <%= f.text_area :body, class: "form-control", placeholder: 'Your comments...' %>
   </div><br>
  

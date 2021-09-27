@@ -17,22 +17,39 @@ class PostsController < ApplicationController
   end
 
   def find_post
+    session[:userdata]['role'] == 'admin' ? find_post_admin : find_post_writer
+  end
+
+  def find_post_admin
     @posts = Post.joins(:user).search(params[:search])
                  .select('posts.*, users.id as user_id, users.username, users.role')
                  .order('posts.created_at DESC').page(params[:page]).per(10)
+  end
 
-    @posts = @posts.where(['user_id = ?', session[:user_id].to_s]) if session[:role] != 'admin'
+  def find_post_writer
+    @posts = Post.joins(:user).search(params[:search])
+                 .select('posts.*, users.id as user_id, users.username, users.role')
+                 .order('posts.created_at DESC').page(params[:page]).per(10)
+                 .where('user_id = ?', session[:userdata]['id'])
   end
 
   def export_excel(page)
     thispage = page > 1 ? page - 1 : page
-    @pageposts = params[:type] == 'all' ? Post.all : Post.order('created_at DESC').limit(10).offset(thispage * 10 || 1)
-    @pageposts = @pageposts.where(['user_id = ?', session[:user_id].to_s]) if session[:role] != 'admin'
+    @pageposts = ExportExcel.new(
+      page: thispage,
+      role: session[:userdata]['role'],
+      type: params[:type],
+      id: session[:userdata]['id']
+    ).export
   end
 
   def show
     @post = Post.joins(:user).select('posts.*, users.id as user_id, users.username').find(params[:id])
-    @post.user_id == session[:user_id] || session[:role] == 'admin' ? show_response : redirect_to(posts_path)
+    if @post.user_id == session[:userdata]['id'] || session[:userdata]['role'] == 'admin'
+      show_response
+    else
+      redirect_to(posts_path)
+    end
   end
 
   def show_response
@@ -46,16 +63,9 @@ class PostsController < ApplicationController
   end
 
   def export_pdf
-    save_path = Rails.root.join('public', "#{@post.id}.pdf")
-    if File.exist?(save_path)
-      # send pdf data
-      send_file save_path, disposition: :inline
-    else
-      # kick off the job and render the default template for this action
-      AddPdfJob.perform_now(@post)
-      send_file save_path, disposition: :inline
-      DeletePdfJob.set(wait: 1.minutes).perform_later(@post.id)
-    end
+    process = ExportPdf.new(post: @post).export
+    send_file process, disposition: :inline
+    DeletePdfJob.set(wait: 1.minutes).perform_later(@post.id)
   end
 
   def new
@@ -77,7 +87,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.user_id = session[:user_id]
+    @post.user_id = session[:userdata]['id']
     @post.save
     redirect_to @post
   end
