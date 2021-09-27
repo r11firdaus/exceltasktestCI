@@ -1,11 +1,11 @@
-<div class="card bg-light my-2">
+<div class="card bg-light my-2" id="<%= comment.id %>">
 	<div class="card-body">
 		<strong class="card-title"><%= comment.commenter %></strong>
 		<p><%= comment.body %></p>
-		<p><%= link_to('Delete Comment', [comment.post, comment], method: :delete, data: {
+		<!-- p><%= link_to('Delete Comment', [comment.post, comment], method: :delete, data: {
         	confirm: 'Are you sure?' 
     		})
-    	%></p>
+    	%></p -->
 	</div>
 </div>
 
