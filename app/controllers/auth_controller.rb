@@ -3,7 +3,7 @@
 # Authtenticating user
 class AuthController < ApplicationController
   def form_register
-    redirect_to posts_path if session[:userdata]['id']
+    redirect_to posts_path if session[:userdata]
     @user = User.new
   end
 
