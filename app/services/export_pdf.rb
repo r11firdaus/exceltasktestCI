@@ -12,7 +12,7 @@ class ExportPdf
     # send pdf data
     else
       # kick off the job and render the default template for this action
-      AddPdfJob.perform_now(@post)
+      AddPdfJob.new(post: @post).perform_now
     end
     save_path
   end
