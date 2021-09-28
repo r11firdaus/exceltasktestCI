@@ -11,19 +11,7 @@
     </div>
   <% end %>
 
-  <!-- % if @current_user.id == @user.id %  -->
-    <!-- <div class="field"> -->
-      <!-- %= form.label :username % -->
-      <!-- %= form.text_field :username, class: "form-control mb-2", required: true % -->
-    <!-- </div> -->
-
-    <!-- <div class="field"> -->
-      <!-- %= form.label :password % -->
-      <!-- %= form.text_field :password, type: 'password', class: "form-control mb-2" % -->
-    <!-- </div> -->
-  <!-- % end % -->
-
-  <% if @user.role == 'admin' %>
+  <% if session[:userdata]["role"] == 'admin' %>
     <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" name="user[role]" id="user_role">
       <% Role.all.collect do |ro| %>
         <%= content_tag(:option, "#{ro.name}", value: ro.name) %>
