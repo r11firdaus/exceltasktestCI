@@ -5,8 +5,8 @@ class CommentsController < ApplicationController
   before_action :user_signed_in?
 
   def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.create(comment_params)
+    @comment = Comment.new(comment_params)
+    @comment.post_id = params[:post_id]
     @comment.commenter = session[:userdata]['username']
     return unless @comment.save
 
@@ -18,10 +18,12 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.find(params[:id])
-    @comment.destroy
-    redirect_to(post_path(@post))
+    @comment = Comment.find(params[:id])
+    return unless @comment.destroy
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

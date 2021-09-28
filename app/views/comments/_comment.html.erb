@@ -2,7 +2,7 @@
 	<div class="card-body">
 		<strong class="card-title"><%= comment.commenter %></strong>
 		<p><%= comment.body %></p>
-		<p><%= link_to('Delete Comment', [comment.post, comment], method: :delete, data: {
+		<p><%= link_to('Delete Comment', [comment.post, comment], remote: true, method: :delete, data: {
         	confirm: 'Are you sure?' 
     		})
     	%></p>
