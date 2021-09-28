@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :roles
   resources :users, except: [:new]
@@ -23,6 +25,6 @@ Rails.application.routes.draw do
   end
 
   resources :searches
-  resources :posts_imports, only: [:new, :create]
+  resources :posts_imports, only: %i[new create]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

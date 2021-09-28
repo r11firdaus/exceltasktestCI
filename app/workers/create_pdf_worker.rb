@@ -1,30 +1,26 @@
+# frozen_string_literal: true
+
+# generate pdf in background with sidekiq
 class CreatePdfWorker
   include Sidekiq::Worker
 
   def perform(post)
-    # Do something later
-    puts "Starting generate PDF on background"
-
-    save_path = Rails.root.join("public","#{post.id}.pdf")
-
+    save_path = Rails.root.join('public', "#{post.id}.pdf")
     return if File.exist?(save_path)
 
+    render
+  end
+
+  def render
     pdf_contents = ApplicationController.render(
-      # pdf: "#{post.id}",
-      pdf: "#{post.id}",
-      template: "posts/show.pdf",
-      layout: "pdf",
-      # locals: {post: post},
-      assigns: {post: post},
+      pdf: post.id.to_s,
+      template: 'posts/show.pdf',
+      layout: 'pdf',
+      assigns: { post: post }
     )   # Excluding ".pdf" extension.
 
-    # File.open(save_path, 'wb') do |file|
-    #   file.write(pdf_contents)
-    # end
     File.open(save_path, 'wb') do |file|
       file.write(pdf_contents)
     end
-
-    puts "Finish generate PDF on background"
   end
 end

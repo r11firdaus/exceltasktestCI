@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # config/initializers/recaptcha.rb
 Recaptcha.configure do |config|
-  config.site_key  = Rails.application.credentials.RECAPTCHA_PUBLIC_KEY
+  config.site_key = Rails.application.credentials.RECAPTCHA_PUBLIC_KEY
   config.secret_key = Rails.application.credentials.RECAPTCHA_PRIVATE_KEY
 
   # Uncomment the following line if you are using a proxy server:

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# import post data from excel
 class AddPostWorkerJob < ApplicationJob
   queue_as :default
 
