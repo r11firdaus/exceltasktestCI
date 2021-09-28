@@ -6,7 +6,7 @@ class AddPdfJob < ApplicationJob
 
   def initialize(post:)
     @post = post
-    @save_path = Rails.root.join('public', "#{@post.id}.pdf")
+    @save_path = Rails.root.join('public/pdf', "#{@post.id}.pdf")
   end
 
   def perform

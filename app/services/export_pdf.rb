@@ -7,7 +7,7 @@ class ExportPdf
   end
 
   def export
-    save_path = Rails.root.join('public', "#{@post.id}.pdf")
+    save_path = Rails.root.join('public/pdf', "#{@post.id}.pdf")
     if File.exist?(save_path)
     # send pdf data
     else
