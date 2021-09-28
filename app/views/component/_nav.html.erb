@@ -4,28 +4,8 @@
       <a class="navbar-brand" href="/">Exceltask</a>
       <%= form_with(url: '/posts', method: 'get', local: true, class: 'd-flex') do %>
         <%= text_field_tag(:search, "", class: "form-control me-2", placeholder: "Search") %>
-        <%= link_to "Logout", user_logout_path(session[:userdata]["id"]), class: 'btn', method: :delete %>
+        <a href="/users/<%= session[:userdata]["id"]%>" class="nav-link">Profile</a>
       <% end %>
     </div>
-  </nav>
-  <nav class="sticky-top navbar-light bg-light border-bottom">
-    <ul class="nav justify-content-between">
-      <% if session[:userdata]["role"] == "admin" %>
-        <li class="nav-item">
-          <a href="<%= new_posts_import_path %>" class="nav-link">&uarr; XLSX</a>
-        </li>
-      <% end %>
-      <% if @posts %>
-        <li class="nav-item">
-          <a href="<%= posts_path(format: :xlsx, currpage: params[:page], type: "all") %>" class="nav-link">&darr; All</a>
-        </li>
-        <li class="nav-item">
-          <a href="<%= posts_path(format: :xlsx, currpage: params[:page], type: "pageonly") %>" class="nav-link">&darr; Page</a>
-        </li>
-      <% end %>
-      <li class="nav-item">
-        <a href="/users/<%= session[:userdata]["id"]%>" class="nav-link">Profile</a>
-      </li>
-    </ul>
   </nav>
 <% end %>

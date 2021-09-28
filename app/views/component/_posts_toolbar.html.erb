@@ -1,0 +1,15 @@
+<nav class="sticky-top navbar-white bg-white border-bottom">
+  <ul class="nav justify-content-between">
+    <% if session[:userdata]["role"] == "admin" %>
+      <li class="nav-item">
+        <a href="<%= new_posts_import_path %>" class="nav-link">&uarr; XLSX</a>
+      </li>
+    <% end %>
+    <li class="nav-item">
+      <a href="<%= posts_path(format: :xlsx, currpage: params[:page], type: "all") %>" class="nav-link">&darr; All</a>
+    </li>
+    <li class="nav-item">
+      <a href="<%= posts_path(format: :xlsx, currpage: params[:page], type: "pageonly") %>" class="nav-link">&darr; Page</a>
+    </li>
+  </ul>
+</nav>

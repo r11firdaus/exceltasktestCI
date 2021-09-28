@@ -1,10 +1,11 @@
 <div class="row">
-  <div class="mt-3">
+  <div>
     <a href="<%= new_search_path %>">&larr; Back</a>
     <h6>Search Results</h6>
     <% if @posts.empty? %>
       <p>No Post were found.</p>
     <% else %>
+      <%= render 'component/posts_toolbar' %>
       <div class="row">
         <% @posts.each do |post| %>
           <div class="col-sm-6">
