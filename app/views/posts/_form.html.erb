@@ -22,6 +22,6 @@
     <%= f.label :body %>
     <%= f.text_area :body, class: "form-control" %>
   </div><br>
-  <button class="btn btn-primary" type='<%= f.submit %>'>Create</button>
+  <button class="btn btn-primary" type='<%= f.submit %>' data-disable-with="Saving...">Poceed</button>
   <%= link_to 'Back', posts_path, class: "btn btn-secondary" %>
 <% end %>

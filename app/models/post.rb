@@ -4,8 +4,8 @@
 class Post < ApplicationRecord
   paginates_per 10
   has_many :comments, dependent: :destroy # kalau post di delete, comment juga di delete
-  validates :title, presence: true, length: { minimum: 1 }
-  validates :body, presence: true, length: { minimum: 1 }
+  validates :title, presence: true
+  validates :body, presence: true
   belongs_to :user
 
   self.inheritance_column = 'not_sti'
