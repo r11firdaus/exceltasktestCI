@@ -1,5 +1,6 @@
 const element = document.querySelector("#form_comment");
-element.addEventListener("ajax:success", (event) => {
+
+ element.addEventListener("ajax:success", (event) => {
 	$('#comment').append(`
 		<div class="card bg-light my-2">
 			<div class="card-body">
@@ -11,7 +12,7 @@ element.addEventListener("ajax:success", (event) => {
 		</div>
 	`)
  	$('#comment_body').val('')
-});
+}); 
 
 element.addEventListener("ajax:error", () => {
 	element.insertAdjacentHTML("beforeend", "<p>ERROR</p>");

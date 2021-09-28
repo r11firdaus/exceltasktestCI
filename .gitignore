@@ -37,4 +37,4 @@ yarn-debug.log*
 
 
 /dump.rdb
-/public/pdf
+# /public/pdf

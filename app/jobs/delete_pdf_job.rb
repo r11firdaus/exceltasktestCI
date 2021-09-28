@@ -6,7 +6,7 @@ class DeletePdfJob < ApplicationJob
 
   def perform(id)
     # Do something later
-    path = Rails.root.join('public', "#{id}.pdf")
+    path = Rails.root.join('public/pdf', "#{id}.pdf")
     File.delete(path) if File.exist?(path)
   end
 end
