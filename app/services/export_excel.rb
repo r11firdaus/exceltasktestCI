@@ -22,7 +22,7 @@ class ExportExcel
       Post.all.where('user_id = ?', @id)
     else
       Post.order('created_at DESC').limit(10)
-          .offset(page * 10 || 1).where('user_id = ?', @id)
+          .offset(@page * 10 || 1).where('user_id = ?', @id)
     end
   end
 end
