@@ -1,38 +1,37 @@
-const element = document.querySelector("#form_comment");
+// const element = document.querySelector("#form_comment");
 
-// $.ajax({
-// 	success: () => {
-// 		$('#comment').append(`
-// 			<div class="card bg-light my-2">
-// 				<div class="card-body">
-// 					<strong class="card-title"><%= @comment.commenter %></strong>
-// 				 	<p><%= @comment.body %></p>
-// 				 	<p><%= link_to('Delete Comment', [@comment.post, @comment], method: :delete, data: {confirm: 'Are you sure?'}) %></p>
-// 				</div>
+// element.addEventListener("ajax:success", (event) => {
+// 	$('#comment').append(`
+// 		<div class="card bg-light my-2" id="<%= @comment.id %>">
+// 			<div class="card-body">
+// 			  <strong class="card-title"><%= @comment.commenter %></strong>
+// 			  <p><%= @comment.body %></p>
+// 			  <p><%= link_to('Delete Comment', [@comment.post, @comment], method: :delete, remote: true, data: {confirm: 'Are you sure?'}) %></p>
 // 			</div>
-// 		`)
-// 	 	$('#comment_body').val('')
-// 	},
-// 	error: () => {
-// 		$("#form_comment").append("<p>Error</p>")
-// 	}
-// })
+// 		</div>
+// 	`)
+//  	$('#comment_body').val('')
+// }); 
 
+// element.addEventListener("ajax:error", () => {
+// 	element.insertAdjacentHTML("beforeend", "<p>ERROR</p>");
+// });
 
-
- element.addEventListener("ajax:success", (event) => {
-	$('#comment').append(`
-		<div class="card bg-light my-2" id="<%= @comment.id %>">
-			<div class="card-body">
-			  <strong class="card-title"><%= @comment.commenter %></strong>
-			  <p><%= @comment.body %></p>
-			  <p><%= link_to('Delete Comment', [@comment.post, @comment], method: :delete, remote: true, data: {confirm: 'Are you sure?'}) %></p>
+// if use jquery, it will peform query again that vanilla don't, so i prefer use vanilla
+$.ajax({
+	success: () => {
+		$('#comment').append(`
+			<div class="card bg-light my-2"id="<%= @comment.id %>">
+				<div class="card-body">
+					<strong class="card-title"><%= @comment.commenter %></strong>
+				 	<p><%= @comment.body %></p>
+				 	<p><%= link_to('Delete Comment', [@comment.post, @comment], method: :delete, remote: true, data: {confirm: 'Are you sure?'}) %></p>
+				</div>
 			</div>
-		</div>
-	`)
- 	$('#comment_body').val('')
-}); 
-
-element.addEventListener("ajax:error", () => {
-	element.insertAdjacentHTML("beforeend", "<p>ERROR</p>");
-});
+		`)
+	 	$('#comment_body').val('')
+	},
+	error: () => {
+		$("#form_comment").append("<p>Error</p>")
+	}
+})

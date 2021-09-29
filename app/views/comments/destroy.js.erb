@@ -1,1 +1,11 @@
-$("#<%= @comment.id %>").remove()
+// using jquery will cause peform query again that vanilla js doesn't, so i prefer use vanilla
+$.ajax({
+	success: () => {
+		$("#<%= @comment.id %>").remove()		
+	},
+	error: () => {
+		alert("Delete comment failed ")
+	}
+})
+
+// $("#<%= @comment.id %>").remove()
