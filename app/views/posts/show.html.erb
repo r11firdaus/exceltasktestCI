@@ -1,5 +1,4 @@
 <div class="container">
-	<%= link_to 'All posts', posts_path %>
     <h1><%= @post.title %></h1>
 
     <div class="card mx-auto">
@@ -7,6 +6,10 @@
             <p><%= @post.body %></p>
             <%= link_to('Export PDF', post_path(@post, format: :pdf)) %>
             <p class="text-muted">File will be removed after 1 minute.</p>
+            <% if @post.user_id == session[:userdata]["id"] %>
+                <%= link_to('Edit', edit_post_path(@post), class: "btn btn-primary col") %>
+                <%= link_to('Destroy', post_path(@post),method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger col") %>
+            <% end -%>
         </div>
     </div>
 
@@ -22,11 +25,4 @@
         <strong>Add a comment:</strong>
         <%= render 'comments/form' %>
     </div>
-
-    <% if @post.user_id == session[:userdata]["id"] %>
-        <div class="row fixed-bottom">
-            <%= link_to('Edit', edit_post_path(@post), class: "btn btn-success col") %>
-            <%= link_to('Destroy', post_path(@post),method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger col") %>
-        </div>
-    <% end -%>
 </div>

@@ -1,0 +1,22 @@
+ $.ajax({
+	success: () => {
+        $('#post_body').val('')
+        $('#post_title').val('')
+
+		$('#error_explanation').append(`
+            <% if @post.errors.any? %>
+                <div id="error_explanation">
+                  <ul class="alert alert-danger alert-dismissible" role="alert">
+                    <h6>
+                      <%= pluralize(@post.errors.count, "error") %> prohibited
+                      this post from being saved:
+                    </h6>
+                    <% @post.errors.full_messages.each do |msg| %>
+                      <li class="mx-4"><%= msg %></li>
+                    <% end %>
+                  </ul>
+                </div>
+            <% end %>
+		`)
+	}
+})

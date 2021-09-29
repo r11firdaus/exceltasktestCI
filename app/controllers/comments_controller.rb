@@ -13,10 +13,10 @@ class CommentsController < ApplicationController
     # respond_to do |format|
     #   format.js
     # end
-    ActionCable.server.broadcast "comment_channel", {
+    ActionCable.server.broadcast 'comment_channel', {
       content: @comment,
-      sender: session[:userdata]["username"],
-      type: "create_comment"
+      sender: session[:userdata]['username'],
+      type: 'create_comment'
     }
   end
 
@@ -27,10 +27,10 @@ class CommentsController < ApplicationController
     # respond_to do |format|
     #   format.js
     # end
-    ActionCable.server.broadcast "comment_channel", {
+    ActionCable.server.broadcast 'comment_channel', {
       content: @comment,
-      sender: session[:userdata]["username"],
-      type: "delete_comment"
+      sender: session[:userdata]['username'],
+      type: 'delete_comment'
     }
   end
 
