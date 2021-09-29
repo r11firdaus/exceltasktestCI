@@ -8,12 +8,12 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.post_id = params[:post_id]
     @comment.commenter = session[:userdata]['username']
-    return unless @comment.save
+    # return unless @comment.save
 
     respond_to do |format|
       format.js
     end
-    # ActionCable.server.broadcast "comment_channel", {content: @comment, sender: session[:userdata]["username"]}
+    ActionCable.server.broadcast "comment_channel", {content: @comment, sender: session[:userdata]["username"]}
   end
 
   def destroy
