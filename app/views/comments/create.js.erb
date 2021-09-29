@@ -17,11 +17,13 @@
 // 	element.insertAdjacentHTML("beforeend", "<p>ERROR</p>");
 // });
 
+
+
 // if use jquery, it will peform query again that vanilla don't, so i prefer use vanilla
 // $.ajax({
 // 	success: () => {
 // 		$('#comment').append(`
-// 			<div class="card bg-light my-2"id="<%= @comment.id %>">
+// 			<div class="card bg-light my-2" id="<%= @comment.id %>">
 // 				<div class="card-body">
 // 					<strong class="card-title"><%= @comment.commenter %></strong>
 // 				 	<p><%= @comment.body %></p>
