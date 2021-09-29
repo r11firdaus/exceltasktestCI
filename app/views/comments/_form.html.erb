@@ -15,10 +15,8 @@
 
   <div class="form-group">
     <input type="text" hidden="true" value="<%= session[:userdata]["username"] %>" name="comment[username]">
-    <%= f.text_area :body, class: "form-control", placeholder: 'Your comments...' %>
+    <%= f.text_area :body, class: "form-control", placeholder: 'Your comments...', required: true %>
   </div><br>
  
   <button class="btn btn-primary" id="comment_submit" type='<%= f.submit %>'>Comment</button>
 <% end %>
-
-<!-- %= javascript_pack_tag 'comment', 'data-turbolinks-track': 'reload' % -->
