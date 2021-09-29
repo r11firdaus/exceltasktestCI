@@ -1,13 +1,32 @@
 const element = document.querySelector("#form_comment");
 
+// $.ajax({
+// 	success: () => {
+// 		$('#comment').append(`
+// 			<div class="card bg-light my-2">
+// 				<div class="card-body">
+// 					<strong class="card-title"><%= @comment.commenter %></strong>
+// 				 	<p><%= @comment.body %></p>
+// 				 	<p><%= link_to('Delete Comment', [@comment.post, @comment], method: :delete, data: {confirm: 'Are you sure?'}) %></p>
+// 				</div>
+// 			</div>
+// 		`)
+// 	 	$('#comment_body').val('')
+// 	},
+// 	error: () => {
+// 		$("#form_comment").append("<p>Error</p>")
+// 	}
+// })
+
+
+
  element.addEventListener("ajax:success", (event) => {
 	$('#comment').append(`
-		<div class="card bg-light my-2">
+		<div class="card bg-light my-2" id="<%= @comment.id %>">
 			<div class="card-body">
 			  <strong class="card-title"><%= @comment.commenter %></strong>
 			  <p><%= @comment.body %></p>
-			  <p><%= link_to('Delete Comment', [@comment.post, @comment], method: :delete, data: {confirm: 'Are you sure?'})
-    	%></p>
+			  <p><%= link_to('Delete Comment', [@comment.post, @comment], method: :delete, remote: true, data: {confirm: 'Are you sure?'}) %></p>
 			</div>
 		</div>
 	`)

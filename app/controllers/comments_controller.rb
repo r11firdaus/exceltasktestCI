@@ -14,7 +14,6 @@ class CommentsController < ApplicationController
       format.js
     end
     # ActionCable.server.broadcast "comment_channel", {content: @comment, sender: session[:userdata]["username"]}
-    # end
   end
 
   def destroy
