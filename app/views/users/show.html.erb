@@ -15,6 +15,10 @@
   <%= @user.district %>, <%= @user.city %>, <%= @user.province %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<% if @user.id == session[:userdata]['id'] %>
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+<% else %>
+  <a href="/chats">Chat</a> | 
+<% end %>
 <%= link_to 'Back', users_path %>
 <p class="mt-3"><%= link_to "Logout", user_logout_path(session[:userdata]["id"]), method: :delete %></p>

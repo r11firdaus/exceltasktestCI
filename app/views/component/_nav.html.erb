@@ -4,7 +4,15 @@
       <a class="navbar-brand" href="/">Exceltask</a>
       <%= form_with(url: '/posts', method: 'get', local: true, class: 'd-flex') do %>
         <%= text_field_tag(:search, "", class: "form-control me-2", placeholder: "Search") %>
-        <a href="/users/<%= session[:userdata]["id"]%>" class="nav-link">Profile</a>
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= session[:userdata]['username'] %>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a href="/users/<%= session[:userdata]['id']%>" class='dropdown-item'>My Profile</a></li>
+            <li><%= link_to "Logout", user_logout_path(session[:userdata]["id"]), method: :delete, class: 'dropdown-item' %></li>
+          </ul>
+        </div>
       <% end %>
     </div>
   </nav>
