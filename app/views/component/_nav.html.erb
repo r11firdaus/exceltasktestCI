@@ -14,7 +14,7 @@
             <img src="/user.png" width="32" height="32">
           </a>
           <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-            <li><a href="/users/<%= session[:userdata]['id']%>" class='dropdown-item'>My Profile</a></li>
+            <li><a href="/users/<%= session[:userdata]['id']%>" class='dropdown-item'>Profile (<%= session[:userdata]['username'] %>)</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><%= link_to "Logout", user_logout_path(session[:userdata]["id"]), method: :delete, class: 'dropdown-item' %></li>
           </ul>
