@@ -1,19 +1,25 @@
 <% if session[:userdata] %>
-  <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
+  <header class="py-3 mb-3 border-bottom navbar-light bg-light">
+    <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
       <a class="navbar-brand" href="/">Exceltask</a>
-      <%= form_with(url: '/posts', method: 'get', local: true, class: 'd-flex') do %>
-        <%= text_field_tag(:search, "", class: "form-control me-2", placeholder: "Search") %>
-        <div class="dropdown">
-          <a class="nav-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= session[:userdata]['username'] %>
+
+      <div class="d-flex align-items-center">
+        <%= form_with(url: '/posts', method: 'get', local: true, class: 'w-100 me-3') do %>
+          <%= text_field_tag(:search, "", class: "form-control", placeholder: "Search") %>
+        <% end %>
+
+        <div class="flex-shrink-0 dropdown">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle"> -->
+            <img src="/user.png" width="32" height="32">
           </a>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <li><a href="/users/<%= session[:userdata]['id']%>" class='dropdown-item'>My Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
             <li><%= link_to "Logout", user_logout_path(session[:userdata]["id"]), method: :delete, class: 'dropdown-item' %></li>
           </ul>
         </div>
-      <% end %>
+      </div>
     </div>
-  </nav>
+  </header>
 <% end %>
