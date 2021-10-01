@@ -2,8 +2,10 @@
 
 # only the users can edit their data, but for roles, only admin can assign it to users
 class UsersController < ApplicationController
+  require "ostruct"
   before_action :user_signed_in?
-  before_action :set_user, only: %i[show edit update destroy]
+  # before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[edit update destroy]
   before_action :validate_role, only: %i[index]
 
   # GET /users or /users.json
@@ -12,7 +14,9 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    @user = OpenStruct.new(session[:userdata]) || set_user
+  end
 
   # GET /users/new
   def new
@@ -46,9 +50,9 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    return unless session[:userdata]['role'] == 'admin' && (@user.id == session[:userdata]['id'])  
     respond_to do |format|
       if @user.update(user_params)
+        session[:userdata] = @user if session[:userdata]['id'].to_i == @user.id
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -76,6 +80,7 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
+    # Potentially dangerous key allowed for mass assignment (:role)
     params.require(:user).permit(:username, :password, :role, :province, :city, :district)
   end
 end

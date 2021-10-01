@@ -57,7 +57,7 @@
                 <%= recaptcha_tags %> <!-- THIS -->
               </div>
 
-            <%= submit_tag 'Register', class: "btn btn-primary", data: { disable_with: "Please Wait..." } %> <br>
+            <%= submit_tag 'Register', class: "btn btn-primary", data: { disable_with: "Please Wait...", turbolinks:"false" } %> <br>
             <p>Sudah punya akun? <%= link_to 'login', form_login_path %></p>
         <% end %>
     </div>

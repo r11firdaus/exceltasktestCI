@@ -16,7 +16,7 @@
 </p>
 
 <% if @user.id == session[:userdata]['id'] %>
-  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Edit', edit_user_path(@user.id) %> |
 <% else %>
   <a href="/chats">Chat</a> | 
 <% end %>

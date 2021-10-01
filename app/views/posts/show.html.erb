@@ -7,7 +7,7 @@
             <%= link_to('Export PDF', post_path(@post, format: :pdf)) %>
             <p class="text-muted">File will be removed after 1 minute.</p>
             <% if @post.user_id == session[:userdata]["id"] %>
-                <%= link_to('Edit', edit_post_path(@post), class: "btn btn-primary col") %>
+                <a href="<%= edit_post_path(@post) %>" data-turbolinks-action="replace" class="btn btn-primary col">Edit</a>
                 <%= link_to('Destroy', post_path(@post),method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger col") %>
             <% end -%>
         </div>
