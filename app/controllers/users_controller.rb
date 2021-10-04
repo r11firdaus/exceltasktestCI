@@ -15,7 +15,8 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-    @user = OpenStruct.new(session[:userdata]) || set_user
+    current_user = OpenStruct.new(session[:userdata]) 
+    @user = current_user.id == params[:id] ? OpenStruct.new(session[:userdata]) : set_user 
   end
 
   # GET /users/new
@@ -36,7 +37,7 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
+   
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
