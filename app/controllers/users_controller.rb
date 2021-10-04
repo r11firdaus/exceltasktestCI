@@ -38,28 +38,20 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    @user.save ? show_response(true, @user) : show_response(false, @user)
   end
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
     if @user.update(user_params)
-      response(true, @user)
       session[:userdata] = @user if session[:userdata]['id'].to_i == @user.id
+      show_response(true, @user)
     else
-      response(false, @user)
+      show_response(false, @user)
     end
   end
 
-  def response(status, user)
+  def show_response(status, user)
     respond_to do |format|
       if status
         format.html { redirect_to user, notice: 'User was successfully updated.' }
