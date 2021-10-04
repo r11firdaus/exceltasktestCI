@@ -5,6 +5,7 @@ class AddPdfJob < ApplicationJob
   queue_as :default
 
   def initialize(post:)
+    super
     @post = post
     @save_path = Rails.root.join('public/pdf', "#{@post.id}.pdf")
   end
