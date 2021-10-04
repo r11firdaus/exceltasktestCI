@@ -10,7 +10,7 @@ class ExportExcel
   end
 
   def export
-    @role == 'admin' ? excel_admin : excel_writer
+    @role == 1 ? excel_admin : excel_writer
   end
 
   def excel_admin

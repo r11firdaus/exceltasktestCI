@@ -1,5 +1,6 @@
+<% console %>
 <div class="d-flex">
-  <% if session[:userdata]["role"] == 'admin' || session[:userdata]["role"] == 'writer' %>
+  <% if session[:userdata]['role_id'] == 1 || session[:userdata]['role_id'] == 2 %>
     <div class="p-2">
       <%= link_to 'Add Post', new_post_path, class: "btn btn-primary" %>
     </div>

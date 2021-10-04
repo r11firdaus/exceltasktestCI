@@ -26,12 +26,12 @@ class UsersController < ApplicationController
 
   def validate_role
     @user = User.find(session[:userdata]['id'])
-    redirect_to root_path, notice: 'Access denied.' if @user.role != 'admin'
+    redirect_to root_path, notice: 'Access denied.' if @user.role_id != 1
   end
 
   # GET /users/1/edit
   def edit
-    redirect_to(posts_path) if session[:userdata]['role'] != 'admin' && (@user.id != session[:userdata]['id'])
+    redirect_to(posts_path) if session[:userdata]['role_id'] != 1 && (@user.id != session[:userdata]['id'])
   end
 
   # POST /users or /users.json
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   end
 
   # PATCH/PUT /users/1 or /users/1.json
-  def update
+  def update 
     if @user.update(user_params)
       session[:userdata] = @user if session[:userdata]['id'].to_i == @user.id
       show_response(true, @user)
@@ -81,7 +81,6 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    # Potentially dangerous key allowed for mass assignment (:role)
-    params.require(:user).permit(:username, :password, :role, :province, :city, :district)
+    params.require(:user).permit(:username, :password, :role_id, :province, :city, :district)
   end
 end

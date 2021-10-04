@@ -8,4 +8,5 @@ class User < ApplicationRecord
   validates :city, presence: true
   validates :district, presence: true
   has_many :post, dependent: :destroy
+  has_one :role
 end

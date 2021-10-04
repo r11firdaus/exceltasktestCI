@@ -11,10 +11,10 @@
     </div>
   <% end %>
 
-  <% if session[:userdata]["role"] == 'admin' %>
-    <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" name="user[role]" id="user_role">
+  <% if session[:userdata]['role_id'] == 1 %>
+    <select class="form-select form-select-sm mb-2" aria-label=".form-select-sm example" name="user[role_id]" id="user_role_id">
       <% Role.all.collect do |ro| %>
-        <%= content_tag(:option, "#{ro.name}", value: ro.name) %>
+        <%= content_tag(:option, "#{ro.name}", value: ro.id) %>
       <% end %>
     </select>
   <% end %>

@@ -1,6 +1,6 @@
 <nav class="sticky-top navbar-white bg-white border-bottom">
   <ul class="nav justify-content-between">
-    <% if session[:userdata]["role"] == "admin" %>
+    <% if session[:userdata]['role_id'] == 1 %>
       <li class="nav-item">
         <a href="<%= new_posts_import_path %>" class="nav-link">&uarr; XLSX</a>
       </li>

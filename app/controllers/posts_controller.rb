@@ -17,18 +17,18 @@ class PostsController < ApplicationController
   end
 
   def find_post
-    session[:userdata]['role'] == 'admin' ? find_post_admin : find_post_writer
+    session[:userdata]['role_id'] == 1 ? find_post_admin : find_post_writer
   end
 
   def find_post_admin
     @posts = Post.joins(:user).search(params[:search])
-                 .select('posts.*, users.id as user_id, users.username, users.role')
+                 .select('posts.*, users.id as user_id, users.username, users.role_id')
                  .order('posts.created_at DESC').page(params[:page]).per(10)
   end
 
   def find_post_writer
     @posts = Post.joins(:user).search(params[:search])
-                 .select('posts.*, users.id as user_id, users.username, users.role')
+                 .select('posts.*, users.id as user_id, users.username, users.role_id')
                  .order('posts.created_at DESC').page(params[:page]).per(10)
                  .where('user_id = ?', session[:userdata]['id'])
   end
@@ -37,7 +37,7 @@ class PostsController < ApplicationController
     thispage = page > 1 ? page - 1 : page
     @pageposts = ExportExcel.new(
       page: thispage,
-      role: session[:userdata]['role'],
+      role: session[:userdata]['role_id'],
       type: params[:type],
       id: session[:userdata]['id']
     ).export
@@ -45,7 +45,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.joins(:user).select('posts.*, users.id as user_id, users.username').find(params[:id])
-    if @post.user_id == session[:userdata]['id'] || session[:userdata]['role'] == 'admin'
+    if @post.user_id == session[:userdata]['id'] || session[:userdata]['role_id'] == 1
       show_response
     else
       redirect_to(posts_path)
