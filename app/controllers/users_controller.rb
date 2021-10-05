@@ -31,12 +31,12 @@ class UsersController < ApplicationController
   end
 
   def validate_user(user)
-    redirect_to(posts_path) if session[:userdata]['role_id'] != 1 && (user.id != session[:userdata]['id'])
+	redirect_to(posts_path) if session[:userdata]['role_id'] != 1 && (user.id != session[:userdata]['id'])
   end
 
   # GET /users/1/edit
   def edit
-    validate_user(@user)
+    validate_user(@user) 
   end
 
   # POST /users or /users.json
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   # PATCH/PUT /users/1 or /users/1.json
-  def update
+  def update 
     if @user.update(user_params)
       session[:userdata] = @user if session[:userdata]['id'].to_i == @user.id
       show_response(true, @user)
