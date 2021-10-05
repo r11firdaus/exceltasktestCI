@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     current_user = OpenStruct.new(session[:userdata])
-    @user = current_user.id == params[:id] ? OpenStruct.new(session[:userdata]) : set_user
+    @user = current_user.id == params[:id].to_i ? OpenStruct.new(session[:userdata]) : set_user
     validate_user(@user)
   end
 
@@ -42,7 +42,6 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
     @user.save ? show_response(true, @user) : show_response(false, @user)
   end
 

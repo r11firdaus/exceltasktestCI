@@ -76,10 +76,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def update
-    @post = Post.find(params[:id])
-    if @post.update(post_params)
-      redirect_to post_path(@post)
+  def update 
+   # @post = Post.find(params[:id])
+    if Post.where('id = ?', params[:id]).update(post_params)     
+      redirect_to post_path(params[:id])
     else
       render :edit
     end
