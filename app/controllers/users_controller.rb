@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   end
 
   # PATCH/PUT /users/1 or /users/1.json
-  def update 
+  def update
     if @user.update(user_params)
       session[:userdata] = @user if session[:userdata]['id'].to_i == @user.id
       show_response(true, @user)
