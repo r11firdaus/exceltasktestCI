@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   def show
     current_user = OpenStruct.new(session[:userdata])
     @user = current_user.id == params[:id] ? OpenStruct.new(session[:userdata]) : set_user
+    validate_user(@user)
   end
 
   # GET /users/new
@@ -26,12 +27,16 @@ class UsersController < ApplicationController
 
   def validate_role
     @user = User.find(session[:userdata]['id'])
-    redirect_to root_path, notice: 'Access denied.' if @user.role_id != 1
+    redirect_to root_path if @user.role_id != 1
+  end
+
+  def validate_user(user)
+    redirect_to(posts_path) if session[:userdata]['role_id'] != 1 && (user.id != session[:userdata]['id'])
   end
 
   # GET /users/1/edit
   def edit
-    redirect_to(posts_path) if session[:userdata]['role_id'] != 1 && (@user.id != session[:userdata]['id'])
+    validate_user(@user)
   end
 
   # POST /users or /users.json
@@ -42,7 +47,7 @@ class UsersController < ApplicationController
   end
 
   # PATCH/PUT /users/1 or /users/1.json
-  def update 
+  def update
     if @user.update(user_params)
       session[:userdata] = @user if session[:userdata]['id'].to_i == @user.id
       show_response(true, @user)
