@@ -72,9 +72,6 @@ group :development, :test do
 	# testing tool
 	gem 'rspec-rails', '~> 5.0', '>= 5.0.2'
 
-	# reducing number queries
-  gem 'bullet'
-
 	#testing asosciation with rspec
 	gem 'shoulda-matchers', '~> 5.0'
 end
@@ -89,6 +86,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'ruby-growl', '~> 4.1'
+	# reducing number queries
+  gem 'bullet'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
