@@ -44,7 +44,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.joins(:user).select('posts.*, users.id as user_id, users.username').find(params[:id])
+    @post = Post.joins(:user).select('posts.*, users.id as user_id, users.username, users.role_id').find(params[:id])
     if @post.user_id == session[:userdata]['id'] || session[:userdata]['role_id'] == 1
       show_response
     else
@@ -55,7 +55,7 @@ class PostsController < ApplicationController
   def show_response
     respond_to do |format|
       format.html
-      format.json { render json: @post }
+	  format.json { render json: @post }
       format.pdf do
         export_pdf
       end
@@ -116,6 +116,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :image_url)
   end
 end

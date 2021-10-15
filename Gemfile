@@ -62,9 +62,18 @@ gem 'rubocop', require: false
 # protect from bad clients/too many request
 gem 'rack-attack'
 
+# serialize response as json
+gem 'active_model_serializers'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+	# testing tool
+	gem 'rspec-rails', '~> 5.0', '>= 5.0.2'
+	# reducing number queries
+  gem 'bullet'
+	#testing asosciation with rspec
+	gem 'shoulda-matchers', '~> 5.0'
 end
 
 group :development do
@@ -76,9 +85,6 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  # reducing number queries
-  gem 'bullet'
-
   gem 'ruby-growl', '~> 4.1'
 end
 

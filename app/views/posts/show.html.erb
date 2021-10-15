@@ -3,7 +3,8 @@
 
     <div class="card mx-auto">
         <div class="card-body">
-            <p><%= @post.body %></p>
+			<img src="<%= @post.image_url  %>" class="img-fluid" loading="lazy" />	   
+			<p><%= @post.body %></p>
             <%= link_to('Export PDF', post_path(@post, format: :pdf)) %>
             <p class="text-muted">File will be removed after 1 minute.</p>
             <% if @post.user_id == session[:userdata]["id"] %>

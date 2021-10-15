@@ -8,6 +8,12 @@
     <%= f.label 'Content' %>
     <%= f.text_area :body, class: "form-control", required: true %>
   </div><br>
+
+  <div class="form-group">
+    <%= f.label 'Image URL' %>
+    <%= f.text_field :image_url, class: "form-control", required: true %>
+  </div><br>
+
   <button class="btn btn-primary" type="submit" data-disable-with="Saving...">Proceed</button>
   <%= link_to 'Back', posts_path, class: "btn btn-secondary" %>
 <% end %>

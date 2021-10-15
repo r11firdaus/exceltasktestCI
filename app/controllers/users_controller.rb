@@ -15,9 +15,12 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-    current_user = OpenStruct.new(session[:userdata])
-    @user = current_user.id == params[:id].to_i ? OpenStruct.new(session[:userdata]) : set_user
-    validate_user(@user)
+    # current_user = OpenStruct.new(session[:userdata])
+    # @user = current_user.id == params[:id].to_i ? OpenStruct.new(session[:userdata]) : set_user
+    # validate_user(@user)
+    @user = set_user
+
+    render json: @user, serializer: WriterSerializer
   end
 
   # GET /users/new

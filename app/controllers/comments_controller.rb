@@ -13,10 +13,17 @@ class CommentsController < ApplicationController
     # respond_to do |format|
     #   format.js
     # end
+
+    # using action cable with serializer
+    serialized_comment =
+      ActiveModelSerializers::SerializableResource.new(@comment,
+                                                       { serializer: CommentSerializer }).as_json
+ 
     ActionCable.server.broadcast 'comment_channel', {
-      content: @comment,
-      sender: session[:userdata]['username'],
-      type: 'create_comment'
+    	#content: @comment,
+		content: serialized_comment, #using serializer
+	    sender: session[:userdata]['username'],
+	    type: 'create_comment'
     }
   end
 
@@ -24,9 +31,6 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     return unless @comment.destroy
 
-    # respond_to do |format|
-    #   format.js
-    # end
     ActionCable.server.broadcast 'comment_channel', {
       content: @comment,
       sender: session[:userdata]['username'],

@@ -12,7 +12,7 @@ consumer.subscriptions.create("CommentChannel", {
 
   received(data) {
     // Called when there's incoming data on the websocket for this channel
-    if (data.type == "create_comment") {
+/*    if (data.type == "create_comment") {
     	if (data.sender == data.content.commenter) {
       		document.getElementById('comment_body').value = ''
     	}
@@ -26,6 +26,9 @@ consumer.subscriptions.create("CommentChannel", {
 	        </div>
 	      </div>
 	    `)
-    } else $(`#${data.content.id}`).remove()
+    } else $(`#${data.content.id}`).remove() */
+	console.log(data)
   }
+
+
 });
