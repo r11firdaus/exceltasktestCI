@@ -51,6 +51,8 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary', group: :development
 gem 'wkhtmltopdf-heroku', group: :production
 
+gem 'sqlite3', '~> 1.4', group: :test
+
 # activejob/background process
 gem 'sidekiq', '~> 6.1.3'
 

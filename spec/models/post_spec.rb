@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Post, type: :model do
 	let(:user) {
-    User.new(username: 'testuser',
-						 password: '1234',
-						 province: 'JAWA BARAT',
-						 city: 'CIMAHI',
-						 district: 'CIMAHI UTARA')
+    User.new(username: 'usertes',
+             password: '1234',
+             district: 'CIMAHI UTARA',
+             city: 'CIMAHI',
+             province: 'JAWA BARAT')
   }
 
 	describe "Associations" do
