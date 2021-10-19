@@ -1,0 +1,36 @@
+version: v1.0
+name: Test MyApp
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: Bundle
+    task:
+      env_vars:
+        - name: RAILS_ENV
+          value: test
+      jobs:
+        - name: Install
+          commands:
+            - checkout
+            - sem-version ruby 2.6.5
+            - cache restore
+            - bundle install --deployment --path vendor/bundle
+            - cache store
+  - name: Test
+    task:
+      env_vars:
+        - name: RAILS_ENV
+          value: test
+      prologue:
+        commands:
+          - checkout
+          - sem-version ruby 2.6.5
+          - cache restore
+          - bundle install --deployment --path vendor/bundle
+          - 'bundle exec rake db:setup'
+      jobs:
+        - name: Rspec
+          commands:
+            - bundle exec rspec
