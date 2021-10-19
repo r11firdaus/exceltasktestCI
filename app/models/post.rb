@@ -6,7 +6,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy # kalau post di delete, comment juga di delete
   validates :title, presence: true
   validates :body, presence: true
-  belongs_to :user
+  belongs_to :user, optional: true
 
   self.inheritance_column = 'not_sti'
 
